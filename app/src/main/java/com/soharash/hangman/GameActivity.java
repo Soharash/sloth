@@ -13,8 +13,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,6 +90,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     MediaPlayer win;
     String word = "";
     String TAG = "GameActivity";
+    String selectedLanguage;
 
     private void checkLetter(String letter)
     {
@@ -399,6 +402,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initKeyboard() {
+        String random = prefs.getString("random_language" , StartActivity.language[0]);
+        ViewStub stub = (ViewStub) findViewById(R.id.include);
+        if(random.equals(StartActivity.language[0]))
+        stub.setLayoutResource(R.layout.keyboard);
+        else
+            stub.setLayoutResource(R.layout.keyboard_fa);
+       stub.inflate();
+
         bQ = ((Button) findViewById(R.id.bQ));
         bW = ((Button) findViewById(R.id.bW));
         bE = ((Button) findViewById(R.id.bE));
@@ -641,6 +652,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         key = MediaPlayer.create(this, R.raw.sound_correct);
 
         prefs = getSharedPreferences("StartActivity", 0);
+        selectedLanguage = prefs.getString("language" , StartActivity.language[0]);
         no_score = prefs.getInt("no_score", 0);
         no_correct = prefs.getInt("no_correct", 0);
         no_played = prefs.getInt("no_played", 0);
@@ -657,9 +669,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         tvCategory = ((TextView) findViewById(R.id.tvCategory));
         tvScore = ((TextView) findViewById(R.id.tvScore));
         tvTime = ((TextView) findViewById(R.id.tvTime));
-        initKeyboard();
+
         category = prefs.getString("category", categories[0]);
-        word = PrepareWord.getWord(getApplicationContext(), category).word.toUpperCase().trim();
+
+        word = PrepareWord.getWord(getApplicationContext(), category).toUpperCase().trim();
+        initKeyboard();
         hiddenWord = PrepareWord.prepare(word);
         tvCategory.setText(category.toUpperCase());
         tvWord.setText(hiddenWord);

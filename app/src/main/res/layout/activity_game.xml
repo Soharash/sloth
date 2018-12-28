@@ -128,9 +128,8 @@
         android:textColor="#ffffffff"
         android:textSize="24.0sp" />
 
-    <include
+    <ViewStub
         android:id="@+id/include"
-        layout="@layout/keyboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

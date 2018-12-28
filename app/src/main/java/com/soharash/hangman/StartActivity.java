@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.soharash.hangman.Data.DataContract;
 
+import java.util.ArrayList;
+
 
 public class StartActivity extends AppCompatActivity implements View.OnClickListener {
     Button bCategories;
@@ -22,7 +24,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     Button bMultiplayer;
     Button bSettings;
     Button bStart;
+    Button bLanguage;
     String[] categories = DataContract.categories;
+    public static String[] language = new String[]{"English", "فارسی", "Random - تصادفی"};
+
     //    String[] difficulty = { "Easy", "Medium", "Hard" };
     SharedPreferences.Editor editor;
     Typeface font;
@@ -30,6 +35,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     ImageButton ibSound;
     SharedPreferences prefs;
     String selectedCategory;
+    String selectedLanguage;
 //    TextView tvDifficulty;
 
 
@@ -87,20 +93,35 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             case R.id.bStart:
                 //  pushInfo();
                 startActivity(new Intent(getApplicationContext(), GameActivity.class));
-                overridePendingTransition(   R.anim.slide_in_left  , R.anim.slide_out_right);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 return;
             case R.id.ibSound:
                 if (prefs.getBoolean("sound", true)) {
                     ibNoSound.setVisibility(View.VISIBLE);
-                    editor = getSharedPreferences("StartActivity", 0).edit();
+                    editor = getSharedPreferences("StartActivity", MODE_PRIVATE).edit();
                     editor.putBoolean("sound", false);
                     editor.apply();
-                    return;
+                } else {
+                    ibNoSound.setVisibility(View.INVISIBLE);
+                    editor = getSharedPreferences("StartActivity", MODE_PRIVATE).edit();
+                    editor.putBoolean("sound", true);
+                    editor.apply();
                 }
-                ibNoSound.setVisibility(View.INVISIBLE);
-                editor = getSharedPreferences("StartActivity", 0).edit();
-                editor.putBoolean("sound", true);
-                editor.apply();
+                break;
+            case R.id.bLanguage:
+                builder = new AlertDialog.Builder(this);
+                builder.setTitle("Language:");
+                builder.setItems(language, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogInterface, int index) {
+                        selectedLanguage = language[index];
+                        bLanguage.setText(selectedLanguage);
+                        editor = getSharedPreferences("StartActivity", MODE_PRIVATE).edit();
+                        editor.putString("language", language[index]);
+                        editor.apply();
+                        //  editor.putString("item_category", language.get(index));
+                    }
+                });
+                builder.show();
                 break;
         }
 
@@ -119,12 +140,15 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         }
         for (; ; ) {
             bCategories.setOnClickListener(this);
+            bLanguage.setOnClickListener(this);
 //            bDifficulty.setOnClickListener(this);
             bStart.setOnClickListener(this);
             bMultiplayer.setOnClickListener(this);
             bSettings.setOnClickListener(this);
             selectedCategory = prefs.getString("category", categories[0]);
             bCategories.setText(selectedCategory);
+            selectedLanguage = prefs.getString("language", language[0]);
+            bLanguage.setText(selectedLanguage);
 //            String difficulty = prefs.getString("difficulty", difficulty[0]);
 //            bDifficulty.setText(difficulty);
 
@@ -138,6 +162,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 //        FirstStart.shuffleWords(getApplicationContext());
 //        tvDifficulty = ((TextView)findViewById(R.id.tvDifficulty));
         bCategories = findViewById(R.id.bCategories);
+        bLanguage = findViewById(R.id.bLanguage);
         bCategories.setText(categories[0]);
 //        bDifficulty = ((Button)findViewById(R.id.bDifficulty));
 //        bDifficulty.setText(difficulty[1]);

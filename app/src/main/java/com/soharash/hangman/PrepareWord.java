@@ -7,41 +7,75 @@ import com.soharash.hangman.Data.DatabaseHelper;
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Random;
 
-public class PrepareWord
-{
+import static android.content.Context.MODE_PRIVATE;
+
+public class PrepareWord {
     private static Context context;
 
-    public static Word getWord(Context mContext, String tableName)
-    {
+    public static String getWord(Context mContext, String tableName) {
         context = mContext;
         String temp = tableName.toLowerCase().replace(" ", "_");
         SharedPreferences localSharedPreferences = context.getSharedPreferences("PrepareWord", 0);
         SharedPreferences.Editor localEditor = context.getSharedPreferences("PrepareWord", 0).edit();
+
+
         int i = localSharedPreferences.getInt(temp, 0);
-       // String[] array = readText(paramString).split(";");
-        ArrayList<Word> words = DatabaseHelper.getAll(context , tableName);
-        if(words.size() > 0) {
+        // String[] array = readText(paramString).split(";");
+        ArrayList<Word> words = DatabaseHelper.getAll(context, tableName);
+        if (words.size() > 0) {
             if (i < words.size() - 1) {
                 i += 1;
                 localEditor.putInt(temp, i);
                 localEditor.apply();
-                return words.get(i);
+                return getWordByLanguage(words.get(i));
             }
             localEditor.putInt(temp, 0);
             localEditor.apply();
-            return words.get(0);
-        }
-        else
+            return getWordByLanguage(words.get(0));
+        } else
             return null;
     }
 
-    public static String prepare(String paramString)
+    public static String getWordByLanguage(Word word)
     {
-        SharedPreferences localSharedPreferences = context.getSharedPreferences("PrepareWord", 0);
-        SharedPreferences.Editor localEditor = context.getSharedPreferences("PrepareWord", 0).edit();
-        String language = localSharedPreferences.getString("language" , "en");
-        return paramString.toUpperCase().replace("Q", "_").replace("W", "_").replace("E", "_").replace("R", "_").replace("T", "_").replace("Y", "_").replace("U", "_").replace("I", "_").replace("O", "_").replace("P", "_").replace("A", "_").replace("S", "_").replace("D", "_").replace("F", "_").replace("G", "_").replace("H", "_").replace("J", "_").replace("K", "_").replace("L", "_").replace("Z", "_").replace("X", "_").replace("C", "_").replace("V", "_").replace("B", "_").replace("N", "_").replace("M", "_");
+        SharedPreferences prefs = context.getSharedPreferences("StartActivity" , MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        String language = prefs.getString("language", StartActivity.language[0]);
+        editor.putString("random_language" , language).apply();
+        if(language.equals(StartActivity.language[0]))
+            return word.word;
+        else if(language.equals(StartActivity.language[1]))
+            return word.meaning;
+        else
+        {
+            Random random = new Random();
+            int i = random.nextInt(2);
+            if(i == 1) {
+                editor.putString("random_language" , StartActivity.language[0]).apply();
+                return word.word;
+            }
+            else {
+                editor.putString("random_language" , StartActivity.language[1]).apply();
+                return word.meaning;
+            }
+        }
+    }
+
+    public static String prepare(String theWord) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for(char ch: theWord.toCharArray() )
+        {
+            if(ch == ' ')
+                stringBuilder.append(ch);
+            else
+                stringBuilder.append("_");
+        }
+        return stringBuilder.toString();
+
+
     }
 
 //    public static String readText(String paramString)

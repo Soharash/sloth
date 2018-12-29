@@ -170,6 +170,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         bMultiplayer = findViewById(R.id.bMultiplayer);
         bSettings = findViewById(R.id.bSettings);
         ibSound = findViewById(R.id.ibSound);
-        ibNoSound = findViewById(R.id.ibSound);
+        ibNoSound = findViewById(R.id.ibClose);
     }
 }

@@ -48,6 +48,7 @@
                 android:layout_width="25.0dip"
                 android:layout_height="25.0dip"
                 android:layout_margin="10.0dip"
+                android:visibility="gone"
                 android:background="@drawable/button_learn"
                 android:text="\?"
                 android:textColor="@color/colorKeyboard"
@@ -87,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:gravity="center_horizontal"
-            android:text="+1 NEW HINT!"
+            android:text="@string/new_hint"
             android:textColor="#ffffffff"
             android:textSize="25.0sp"
             android:visibility="gone" />
@@ -109,7 +110,7 @@
                 android:background="@drawable/keyboard_on"
                 android:paddingLeft="30.0dip"
                 android:paddingRight="30.0dip"
-                android:text="NEXT PUZZLE"
+                android:text="@string/next_puzzle"
                 android:textSize="30.0sp" />
         </LinearLayout>
     </LinearLayout>

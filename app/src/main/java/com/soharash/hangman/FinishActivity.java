@@ -77,7 +77,7 @@ public class FinishActivity
             init(intent);
 
             if (correct) {
-                tvStatus.setText("CORRECT!");
+                tvStatus.setText(getString(R.string.correct));
                 tvHint.setVisibility(View.VISIBLE);
                 if (((no_correct > 5) && (prefs.getBoolean("rate", true))) || (prefs.getInt("rate_delay", -1) == no_correct)) {
                     llRate.setVisibility(View.VISIBLE);
@@ -85,13 +85,13 @@ public class FinishActivity
             }
             else
             {
-                tvStatus.setText("WRONG!");
+                tvStatus.setText(getString(R.string.wrong));
                 tvHint.setVisibility(View.GONE);
             }
 
-            tvAnswer.setText("WORD: " + word);
-            tvSolved.setText("SOLVED PUZZLES: " + no_correct);
-            tvScore.setText("SCORE: " + score);
+            tvAnswer.setText(getString(R.string.word) + " " + word);
+            tvSolved.setText(getString(R.string.solved_puzzles) + " " + no_correct);
+            tvScore.setText(getString(R.string.score)+ " " + score);
             bNextPuzzle.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View paramAnonymousView) {
                     nextPuzzle();

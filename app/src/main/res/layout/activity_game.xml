@@ -77,15 +77,18 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:layout_above="@id/tvWord"
         android:layout_below="@id/linearLayout"
         android:orientation="horizontal"
-        android:padding="10.0dip">
+
+        android:padding="16.0dip">
 
         <ImageView
             android:id="@+id/ivHolder"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_margin="16dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_weight="1.0"
@@ -96,6 +99,7 @@
             android:id="@+id/ivHangman"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_marginRight="16dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_weight="1.0"
@@ -111,13 +115,23 @@
             android:text="Hint"
             android:textColor="#ffffffff"
             android:textSize="12.0sp" />
+        <Button
+            android:id="@+id/bTranslate"
+            android:layout_width="74dp"
+            android:layout_height="27dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/hint"
+            android:text="Translate"
+            android:textColor="#ffffffff"
+            android:textSize="12.0sp" />
     </RelativeLayout>
 
     <com.soharash.hangman.CustomViews.CustomTextView
         android:id="@+id/tvWord"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/include"
+        android:layout_above="@id/keyboard"
         android:tag="1"
         android:layout_alignParentLeft="true"
         android:gravity="center"
@@ -128,13 +142,29 @@
         android:textColor="#ffffffff"
         android:textSize="24.0sp" />
 
-    <ViewStub
-        android:id="@+id/include"
+
+    <RelativeLayout
+        android:id="@+id/keyboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true" >
 
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:id="@+id/en_keyboard"-->
+            <!--android:visibility="gone"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<include layout="@layout/keyboard"/>-->
+        <!--</LinearLayout>-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:id="@+id/fa_keyboard"
+            android:visibility="visible"
+            android:layout_height="wrap_content">
+            <include layout="@layout/keyboard_fa"/>
+        </LinearLayout>
+    </RelativeLayout>
     <!--<com.google.android.gms.ads.AdView-->
         <!--android:id="@+id/adView"-->
         <!--android:layout_width="wrap_content"-->

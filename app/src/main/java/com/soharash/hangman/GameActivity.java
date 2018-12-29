@@ -15,7 +15,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -94,6 +96,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private void checkLetter(String letter)
     {
+        Log.i(TAG, "checkLetter: word " + word );
         int i = -1;
         for (;;)
         {
@@ -111,6 +114,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             if (sound) {
                 key.start();
             }
+            tvScore.setText("" + score);
+            tvWord.setText(hiddenWord);
             if (word.equals(hiddenWord))
             {
                 if (120 - time > 0) {
@@ -127,8 +132,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //                }
 //                mInterstitialAd.show();
             }
-            tvScore.setText("" + score);
-            tvWord.setText(hiddenWord);
+//            tvScore.setText("" + score);
+//            tvWord.setText(hiddenWord);
             return;
         }
 //    for (;;)
@@ -170,6 +175,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 return;
             case 7:
                 ivHangman.setImageResource(R.drawable.h02_8);
+                endState = false;
+              //  ivHangman.setImageResource(R.drawable.h02_holder);
+                if (
+//                (mInterstitialAd.isLoaded()) &&
+                        (no_played % showAds == 0)) {
+//            mInterstitialAd.show();
+                    return;
+                }
+                finishGame(false);
                 return;
         }
 //        endState = false;
@@ -402,14 +416,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initKeyboard() {
-        String random = prefs.getString("random_language" , StartActivity.language[0]);
-        ViewStub stub = (ViewStub) findViewById(R.id.include);
-        if(random.equals(StartActivity.language[0]))
-        stub.setLayoutResource(R.layout.keyboard);
-        else
-            stub.setLayoutResource(R.layout.keyboard_fa);
-       stub.inflate();
-
+//        LinearLayout row1 = findViewById(R.id.row1);
+//        LinearLayout row2 = findViewById(R.id.row2);
+//        LinearLayout row3 = findViewById(R.id.row3);
+//        LinearLayout row4 = findViewById(R.id.row4);
+//
+//        for(int i = 0 ; i < row1.getChildCount() ; i++)
+//        {
+//            View v = row1.getChildAt(i);
+//            v.setOnClickListener(this);
+//
+//        }
         bQ = ((Button) findViewById(R.id.bQ));
         bW = ((Button) findViewById(R.id.bW));
         bE = ((Button) findViewById(R.id.bE));
@@ -436,32 +453,32 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         bB = ((Button) findViewById(R.id.bB));
         bN = ((Button) findViewById(R.id.bN));
         bM = ((Button) findViewById(R.id.bM));
-        bQ.setOnClickListener(this);
-        bW.setOnClickListener(this);
-        bE.setOnClickListener(this);
-        bR.setOnClickListener(this);
-        bT.setOnClickListener(this);
-        bY.setOnClickListener(this);
-        bU.setOnClickListener(this);
-        bI.setOnClickListener(this);
-        bO.setOnClickListener(this);
-        bP.setOnClickListener(this);
-        bA.setOnClickListener(this);
-        bS.setOnClickListener(this);
-        bD.setOnClickListener(this);
-        bF.setOnClickListener(this);
-        bG.setOnClickListener(this);
-        bH.setOnClickListener(this);
-        bJ.setOnClickListener(this);
-        bK.setOnClickListener(this);
-        bL.setOnClickListener(this);
-        bZ.setOnClickListener(this);
-        bX.setOnClickListener(this);
-        bC.setOnClickListener(this);
-        bV.setOnClickListener(this);
-        bB.setOnClickListener(this);
-        bN.setOnClickListener(this);
-        bM.setOnClickListener(this);
+//        bQ.setOnClickListener(this);
+//        bW.setOnClickListener(this);
+//        bE.setOnClickListener(this);
+//        bR.setOnClickListener(this);
+//        bT.setOnClickListener(this);
+//        bY.setOnClickListener(this);
+//        bU.setOnClickListener(this);
+//        bI.setOnClickListener(this);
+//        bO.setOnClickListener(this);
+//        bP.setOnClickListener(this);
+//        bA.setOnClickListener(this);
+//        bS.setOnClickListener(this);
+//        bD.setOnClickListener(this);
+//        bF.setOnClickListener(this);
+//        bG.setOnClickListener(this);
+//        bH.setOnClickListener(this);
+//        bJ.setOnClickListener(this);
+//        bK.setOnClickListener(this);
+//        bL.setOnClickListener(this);
+//        bZ.setOnClickListener(this);
+//        bX.setOnClickListener(this);
+//        bC.setOnClickListener(this);
+//        bV.setOnClickListener(this);
+//        bB.setOnClickListener(this);
+//        bN.setOnClickListener(this);
+//        bM.setOnClickListener(this);
     }
 
     private void prepareHint() {
@@ -492,143 +509,153 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void onClick(View paramView) {
-        switch (paramView.getId()) {
-            default:
-                return;
-            case R.id.bQ:
-                checkLetter("Q");
-                bQ.setEnabled(false);
-                bQ.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bW:
-                checkLetter("W");
-                bW.setEnabled(false);
-                bW.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bE:
-                checkLetter("E");
-                bE.setEnabled(false);
-                bE.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bR:
-                checkLetter("R");
-                bR.setEnabled(false);
-                bR.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bT:
-                checkLetter("T");
-                bT.setEnabled(false);
-                bT.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bY:
-                checkLetter("Y");
-                bY.setEnabled(false);
-                bY.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bU:
-                checkLetter("U");
-                bU.setEnabled(false);
-                bU.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bI:
-                checkLetter("I");
-                bI.setEnabled(false);
-                bI.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bO:
-                checkLetter("O");
-                bO.setEnabled(false);
-                bO.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bP:
-                checkLetter("P");
-                bP.setEnabled(false);
-                bP.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bA:
-                checkLetter("A");
-                bA.setEnabled(false);
-                bA.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bS:
-                checkLetter("S");
-                bS.setEnabled(false);
-                bS.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bD:
-                checkLetter("D");
-                bD.setEnabled(false);
-                bD.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bF:
-                checkLetter("F");
-                bF.setEnabled(false);
-                bF.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bG:
-                checkLetter("G");
-                bG.setEnabled(false);
-                bG.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bH:
-                checkLetter("H");
-                bH.setEnabled(false);
-                bH.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bJ:
-                checkLetter("J");
-                bJ.setEnabled(false);
-                bJ.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bK:
-                checkLetter("K");
-                bK.setEnabled(false);
-                bK.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bL:
-                checkLetter("L");
-                bL.setEnabled(false);
-                bL.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bZ:
-                checkLetter("Z");
-                bZ.setEnabled(false);
-                bZ.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bX:
-                checkLetter("X");
-                bX.setEnabled(false);
-                bX.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bC:
-                checkLetter("C");
-                bC.setEnabled(false);
-                bC.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bV:
-                checkLetter("V");
-                bV.setEnabled(false);
-                bV.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bB:
-                checkLetter("B");
-                bB.setEnabled(false);
-                bB.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bN:
-                checkLetter("N");
-                bN.setEnabled(false);
-                bN.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bM:
-                checkLetter("M");
-                bM.setEnabled(false);
-                bM.setBackgroundResource(R.drawable.keyboard_off);
-                return;
-            case R.id.bHint:
-                hintLogic();
-                return;
+        if(paramView.getId() != R.id.bHint) {
+            Button button = (Button) paramView;
+            checkLetter(button.getText().toString());
+            button.setEnabled(false);
+            button.setBackgroundResource(R.drawable.keyboard_off);
         }
+        else
+            hintLogic();
+
+
+//        switch (paramView.getId()) {
+//            default:
+//                return;
+//            case R.id.bQ:
+//                Log.i(TAG, "onClick: bq " + bQ.getText().toString());
+//                checkLetter(bQ.getText().toString());
+//                bQ.setEnabled(false);
+//                bQ.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bW:
+//                checkLetter(bW.getText().toString());
+//                bW.setEnabled(false);
+//                bW.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bE:
+//                checkLetter(bQ.getText().toString());
+//                bE.setEnabled(false);
+//                bE.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bR:
+//                checkLetter(bQ.getText().toString());
+//                bR.setEnabled(false);
+//                bR.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bT:
+//                checkLetter(bQ.getText().toString());
+//                bT.setEnabled(false);
+//                bT.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bY:
+//                checkLetter(bQ.getText().toString());
+//                bY.setEnabled(false);
+//                bY.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bU:
+//                checkLetter(bQ.getText().toString());
+//                bU.setEnabled(false);
+//                bU.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bI:
+//                checkLetter(bQ.getText().toString());
+//                bI.setEnabled(false);
+//                bI.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bO:
+//                checkLetter(bQ.getText().toString());
+//                bO.setEnabled(false);
+//                bO.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bP:
+//                checkLetter(bQ.getText().toString());
+//                bP.setEnabled(false);
+//                bP.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bA:
+//                checkLetter(bQ.getText().toString());
+//                bA.setEnabled(false);
+//                bA.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bS:
+//                checkLetter(bQ.getText().toString());
+//                bS.setEnabled(false);
+//                bS.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bD:
+//                checkLetter(bQ.getText().toString());
+//                bD.setEnabled(false);
+//                bD.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bF:
+//                checkLetter(bQ.getText().toString());
+//                bF.setEnabled(false);
+//                bF.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bG:
+//                checkLetter(bQ.getText().toString());
+//                bG.setEnabled(false);
+//                bG.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bH:
+//                checkLetter("H");
+//                bH.setEnabled(false);
+//                bH.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bJ:
+//                checkLetter("J");
+//                bJ.setEnabled(false);
+//                bJ.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bK:
+//                checkLetter("K");
+//                bK.setEnabled(false);
+//                bK.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bL:
+//                checkLetter("L");
+//                bL.setEnabled(false);
+//                bL.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bZ:
+//                checkLetter("Z");
+//                bZ.setEnabled(false);
+//                bZ.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bX:
+//                checkLetter("X");
+//                bX.setEnabled(false);
+//                bX.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bC:
+//                checkLetter("C");
+//                bC.setEnabled(false);
+//                bC.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bV:
+//                checkLetter("V");
+//                bV.setEnabled(false);
+//                bV.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bB:
+//                checkLetter("B");
+//                bB.setEnabled(false);
+//                bB.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bN:
+//                checkLetter("N");
+//                bN.setEnabled(false);
+//                bN.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bM:
+//                checkLetter("M");
+//                bM.setEnabled(false);
+//                bM.setBackgroundResource(R.drawable.keyboard_off);
+//                return;
+//            case R.id.bHint:
+
+//        }
 //        if (secret == 10) {
 //            Toast.makeText(this, "" + word, 0).show();
 //            return;

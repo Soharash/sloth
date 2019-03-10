@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.soharash.hangman.BuildConfig;
-import com.soharash.hangman.Word;
+import com.soharash.hangman.Models.Word;
 
 import java.io.File;
 import java.io.FileOutputStream;

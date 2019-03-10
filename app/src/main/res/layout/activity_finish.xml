@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg01l"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <LinearLayout
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10.0dip"
                 android:layout_weight="1.0"
-                android:background="@drawable/keyboard_on"
+                android:background="@drawable/button_round"
                 android:paddingLeft="30.0dip"
                 android:paddingRight="30.0dip"
                 android:text="@string/next_puzzle"

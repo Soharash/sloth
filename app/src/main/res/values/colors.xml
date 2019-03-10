@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorAccent">#ff344d2c</color>
-    <color name="colorPrimary">#ff009688</color>
-    <color name="colorPrimaryDark">#ff000000</color>
+    <color name="colorAccent">#4c8f99</color>
+    <color name="colorPrimary">#15454d</color>
+    <color name="colorPrimaryDark">#2d3638</color>
 
-    <color name="colorKeyboard">#ff344d2c</color>
+    <color name="colorKeyboard">#ffffff</color>
 
     <color name="abc_input_method_navigation_guard">@android:color/black</color>
     <color name="abc_search_url_text_normal">#ff7fa87f</color>

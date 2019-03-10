@@ -3,9 +3,7 @@ package com.soharash.hangman;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -13,17 +11,15 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.soharash.hangman.Data.DataContract;
+import com.soharash.hangman.Helper.Utils;
+import com.soharash.hangman.Models.PrepareWord;
 
 import java.util.Arrays;
 import java.util.List;
@@ -58,6 +54,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     Button bY;
     Button bZ;
     String[] categories = DataContract.categories;
+    String[] categoriesPersianNames;
     String category = "";
     int counter = 0;
     SharedPreferences.Editor editor;
@@ -141,6 +138,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         counter += 1;
         displayHangman(counter);
+        Log.i(TAG, "checkLetter: display hangman " + counter);
         if (!sound) {
             return;
         }
@@ -172,19 +170,28 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 return;
             case 6:
                 ivHangman.setImageResource(R.drawable.h02_7);
-                return;
-            case 7:
-                ivHangman.setImageResource(R.drawable.h02_8);
                 endState = false;
-              //  ivHangman.setImageResource(R.drawable.h02_holder);
-                if (
-//                (mInterstitialAd.isLoaded()) &&
-                        (no_played % showAds == 0)) {
-//            mInterstitialAd.show();
-                    return;
-                }
+                //  ivHangman.setImageResource(R.drawable.h02_holder);
                 finishGame(false);
                 return;
+//                if (
+////                (mInterstitialAd.isLoaded()) &&
+//                        (no_played % showAds == 0)) {
+////            mInterstitialAd.show();
+//                    return;
+//                }
+//            case 7:
+//                ivHangman.setImageResource(R.drawable.h02_8);
+//                endState = false;
+//              //  ivHangman.setImageResource(R.drawable.h02_holder);
+//                if (
+////                (mInterstitialAd.isLoaded()) &&
+//                        (no_played % showAds == 0)) {
+////            mInterstitialAd.show();
+//                    return;
+//                }
+//                finishGame(false);
+//                return;
         }
 //        endState = false;
 //        ivHangman.setImageResource(R.drawable.h02_holder);
@@ -225,6 +232,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         else {
+            Log.i(TAG, "finishGame: false ");
             if (sound) {
                 lose.start();
             }
@@ -508,15 +516,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         localBuilder.create().show();
     }
 
-    public void onClick(View paramView) {
-        if(paramView.getId() != R.id.bHint) {
-            Button button = (Button) paramView;
+    public void onClick(View v) {
+
+       if(v.getId() == R.id.bHint)
+            hintLogic();
+       else {
+            Button button = (Button) v;
             checkLetter(button.getText().toString());
             button.setEnabled(false);
             button.setBackgroundResource(R.drawable.keyboard_off);
         }
-        else
-            hintLogic();
 
 
 //        switch (paramView.getId()) {
@@ -669,11 +678,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_game);
 
         init();
-        tvCategory.setOnClickListener(this);
+//        tvCategory.setOnClickListener(this);
     }
 
     private void init()
     {
+        categoriesPersianNames = getResources().getStringArray(R.array.categories);
         win = MediaPlayer.create(this, R.raw.sound_win);
         lose = MediaPlayer.create(this, R.raw.sound_lose);
         key = MediaPlayer.create(this, R.raw.sound_correct);
@@ -702,7 +712,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         word = PrepareWord.getWord(getApplicationContext(), category).toUpperCase().trim();
         initKeyboard();
         hiddenWord = PrepareWord.prepare(word);
-        tvCategory.setText(category.toUpperCase());
+        tvCategory.setText(Utils.getStringResourceID(getApplicationContext() , category.toLowerCase()));
         tvWord.setText(hiddenWord);
         h = new Handler();
         r = new Runnable() {

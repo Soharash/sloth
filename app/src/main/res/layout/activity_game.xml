@@ -3,7 +3,7 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg02l">
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -43,8 +43,8 @@
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
             android:layout_weight="50.0"
-            android:tag="2"
             android:gravity="center_horizontal"
+            android:tag="2"
             android:textColor="#ffffffff"
             android:textSize="24.0sp" />
 
@@ -77,33 +77,37 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:layout_above="@id/tvWord"
+        android:layout_above="@id/buttons_layout"
         android:layout_below="@id/linearLayout"
-        android:orientation="horizontal"
-
-        android:padding="16.0dip">
+       >
 
         <ImageView
             android:id="@+id/ivHolder"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_margin="16dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_weight="1.0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="fitCenter"
-            android:src="@drawable/h02_holder" />
+            android:src="@drawable/h02_7" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#BF15454d" />
 
         <ImageView
             android:id="@+id/ivHangman"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="16dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_weight="1.0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="fitCenter" />
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/buttons_layout"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:layout_above="@id/tvWord">
 
         <Button
             android:id="@+id/bHint"
@@ -112,9 +116,10 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:background="@drawable/hint"
-            android:text="Hint"
+            android:text="@string/hint"
             android:textColor="#ffffffff"
             android:textSize="12.0sp" />
+
         <Button
             android:id="@+id/bTranslate"
             android:layout_width="74dp"
@@ -122,7 +127,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:background="@drawable/hint"
-            android:text="Translate"
+            android:text="@string/translate"
             android:textColor="#ffffffff"
             android:textSize="12.0sp" />
     </RelativeLayout>
@@ -132,12 +137,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/keyboard"
-        android:tag="1"
         android:layout_alignParentLeft="true"
         android:gravity="center"
         android:minHeight="70.0dip"
         android:paddingLeft="15.0dip"
         android:paddingRight="15.0dip"
+        android:tag="1"
         android:text="GUESS\nWORD"
         android:textColor="#ffffffff"
         android:textSize="24.0sp" />
@@ -148,30 +153,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true" >
+        android:layout_alignParentLeft="true">
 
         <!--<LinearLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:id="@+id/en_keyboard"-->
-            <!--android:visibility="gone"-->
-            <!--android:layout_height="wrap_content">-->
-            <!--<include layout="@layout/keyboard"/>-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:id="@+id/en_keyboard"-->
+        <!--android:visibility="gone"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<include layout="@layout/keyboard"/>-->
         <!--</LinearLayout>-->
         <LinearLayout
-            android:layout_width="wrap_content"
             android:id="@+id/fa_keyboard"
-            android:visibility="visible"
-            android:layout_height="wrap_content">
-            <include layout="@layout/keyboard_fa"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible">
+
+            <include layout="@layout/keyboard_fa" />
         </LinearLayout>
     </RelativeLayout>
     <!--<com.google.android.gms.ads.AdView-->
-        <!--android:id="@+id/adView"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginBottom="5.0dip"-->
-        <!--ads:adSize="BANNER"-->
-        <!--ads:adUnitId="@string/banner_ad_game" />-->
+    <!--android:id="@+id/adView"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginBottom="5.0dip"-->
+    <!--ads:adSize="BANNER"-->
+    <!--ads:adUnitId="@string/banner_ad_game" />-->
 </RelativeLayout>

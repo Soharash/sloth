@@ -14,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.soharash.hangman.Data.DataContract;
+import com.soharash.hangman.Helper.PersianNumber;
+import com.soharash.hangman.Helper.Utils;
 
 import java.util.ArrayList;
 
@@ -26,6 +28,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     Button bStart;
     Button bLanguage;
     String[] categories = DataContract.categories;
+    String[] categoriesPersianNames;
     public static String[] language = new String[]{"English", "فارسی", "Random - تصادفی"};
 
     //    String[] difficulty = { "Easy", "Medium", "Hard" };
@@ -36,6 +39,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     SharedPreferences prefs;
     String selectedCategory;
     String selectedLanguage;
+    PersianNumber persianNumber;
 //    TextView tvDifficulty;
 
 
@@ -62,15 +66,15 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 return;
             case R.id.bCategories:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle(categories.length + " Free Categories:");
-                builder.setItems(categories, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
-                        selectedCategory = categories[paramAnonymousInt];
+                builder.setTitle(persianNumber.toPersianNumber(categories.length + getString(R.string.category)));
+                builder.setItems(categoriesPersianNames, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogInterface, int index) {
+                        selectedCategory = categoriesPersianNames[index];
                         bCategories.setText(selectedCategory);
                         editor = getSharedPreferences("StartActivity", 0).edit();
-                        editor.putString("category", categories[paramAnonymousInt]);
+                        editor.putString("category", categories[index]);
                         editor.apply();
-                        editor.putString("item_category", categories[paramAnonymousInt]);
+                        editor.putString("item_category", categories[index]);
                     }
                 });
                 builder.show();
@@ -146,7 +150,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             bMultiplayer.setOnClickListener(this);
             bSettings.setOnClickListener(this);
             selectedCategory = prefs.getString("category", categories[0]);
-            bCategories.setText(selectedCategory);
+            bCategories.setText(Utils.getStringResourceID(this , selectedCategory.toLowerCase()));
             selectedLanguage = prefs.getString("language", language[0]);
             bLanguage.setText(selectedLanguage);
 //            String difficulty = prefs.getString("difficulty", difficulty[0]);
@@ -158,12 +162,14 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void init() {
+        persianNumber = new PersianNumber();
+        categoriesPersianNames = getResources().getStringArray(R.array.categories);
         prefs = getSharedPreferences("StartActivity", 0);
 //        FirstStart.shuffleWords(getApplicationContext());
 //        tvDifficulty = ((TextView)findViewById(R.id.tvDifficulty));
         bCategories = findViewById(R.id.bCategories);
         bLanguage = findViewById(R.id.bLanguage);
-        bCategories.setText(categories[0]);
+        bCategories.setText(categoriesPersianNames[0]);
 //        bDifficulty = ((Button)findViewById(R.id.bDifficulty));
 //        bDifficulty.setText(difficulty[1]);
         bStart = findViewById(R.id.bStart);

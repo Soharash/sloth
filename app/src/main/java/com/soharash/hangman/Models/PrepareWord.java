@@ -1,11 +1,12 @@
-package com.soharash.hangman;
+package com.soharash.hangman.Models;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.soharash.hangman.Data.DatabaseHelper;
+import com.soharash.hangman.Models.Word;
+import com.soharash.hangman.StartActivity;
 
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
 

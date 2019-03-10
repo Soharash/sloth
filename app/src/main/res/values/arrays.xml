@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="categories">
-        <item>حیوانات</item>
-        <item>کشورها</item>
-        <item>خوراکی ها</item>
-        <item>ورزش ها</item>
-        <item>وسایل آشپزخانه</item>
-        <item>شغل ها</item>
+        <item>@string/animals</item>
+        <item>@string/countries</item>
+        <item>@string/food</item>
+        <item>@string/sport</item>
+        <item>@string/kitchen</item>
+        <item>@string/jobs</item>
     </array>
 </resources>

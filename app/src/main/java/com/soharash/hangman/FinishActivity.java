@@ -4,6 +4,8 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,9 +14,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.soharash.hangman.Helper.PersianNumber;
 
 
 public class FinishActivity
@@ -42,6 +47,8 @@ public class FinishActivity
     TextView tvSolved;
     TextView tvStatus;
     String word;
+    PersianNumber persianNumber;
+    ImageView statusImage;
 
     private void nextPuzzle() {
         startActivity(new Intent(getApplicationContext(), GameActivity.class));
@@ -78,6 +85,7 @@ public class FinishActivity
 
             if (correct) {
                 tvStatus.setText(getString(R.string.correct));
+                statusImage.setVisibility(View.VISIBLE);
                 tvHint.setVisibility(View.VISIBLE);
                 if (((no_correct > 5) && (prefs.getBoolean("rate", true))) || (prefs.getInt("rate_delay", -1) == no_correct)) {
                     llRate.setVisibility(View.VISIBLE);
@@ -85,13 +93,14 @@ public class FinishActivity
             }
             else
             {
+                statusImage.setVisibility(View.INVISIBLE);
                 tvStatus.setText(getString(R.string.wrong));
                 tvHint.setVisibility(View.GONE);
             }
 
-            tvAnswer.setText(getString(R.string.word) + " " + word);
-            tvSolved.setText(getString(R.string.solved_puzzles) + " " + no_correct);
-            tvScore.setText(getString(R.string.score)+ " " + score);
+            tvAnswer.setText(persianNumber.toPersianNumber(getString(R.string.word) + " " + word));
+            tvSolved.setText(persianNumber.toPersianNumber(getString(R.string.solved_puzzles) + " " + no_correct));
+            tvScore.setText(persianNumber.toPersianNumber(getString(R.string.score)+ " " + score));
             bNextPuzzle.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View paramAnonymousView) {
                     nextPuzzle();
@@ -204,6 +213,7 @@ public class FinishActivity
 
     private void init(Intent intent)
     {
+        persianNumber = new PersianNumber();
         word = intent.getExtras().getString("word");
         correct = intent.getExtras().getBoolean("correct");
         score = intent.getExtras().getInt("score");
@@ -219,6 +229,9 @@ public class FinishActivity
         tvSolved = ((TextView) findViewById(R.id.tvSolved));
         tvScore = ((TextView) findViewById(R.id.tvScore));
         tvHint = ((TextView) findViewById(R.id.tvHint));
+        statusImage = findViewById(R.id.status_image);
+        statusImage.setColorFilter(Color.WHITE , PorterDuff.Mode.SRC_IN);
+        tvHint.setText(persianNumber.toPersianNumber(getString(R.string.new_hint)));
     }
 }
 

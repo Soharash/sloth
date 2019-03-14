@@ -28,4 +28,7 @@
     <string name="jobs">شغل ها</string>
 
 
+    <string name="enjoy_hangman">از هنگ من خوشت میاد؟</string>
+    <string name="yes">آره!</string>
+    <string name="not_really">نه خیلی</string>
 </resources>

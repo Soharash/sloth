@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 
 import com.soharash.hangman.Data.DataContract;
+import com.soharash.hangman.Helper.PersianNumber;
 import com.soharash.hangman.Helper.Utils;
 import com.soharash.hangman.Models.PrepareWord;
 
@@ -90,6 +91,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     String word = "";
     String TAG = "GameActivity";
     String selectedLanguage;
+    PersianNumber persianNumber;
 
     private void checkLetter(String letter)
     {
@@ -226,6 +228,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             localIntent.putExtra("score", score);
             localIntent.putExtra("solved", no_correct + 1);
             localIntent.putExtra("correct", true);
+            Log.i(TAG, "finishGame: " + score + " " +  (score + no_score));
             startActivity(localIntent);
             finish();
             overridePendingTransition( R.anim.slide_in_left , R.anim.slide_out_right );
@@ -247,6 +250,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             localIntent.putExtra("word", word);
             localIntent.putExtra("correct", false);
             localIntent.putExtra("score", score);
+            Log.i(TAG, "finishGame: " + score + " " +  (score + no_score));
             startActivity(localIntent);
             finish();
             overridePendingTransition(  R.anim.slide_in_left,  R.anim.slide_out_right  );
@@ -371,7 +375,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 i = new Random().nextInt(i - 1 - 1 + 1) + 1;
                 hideLetter((String) hintList.get(i));
                 checkLetter((String) hintList.get(i));
-                bHint.setText("Hint (" + no_hint + ")");
+                bHint.setText(persianNumber.toPersianNumber(getString(R.string.hint) + " (" + no_hint + ")"));
                 if (no_hint == 0) {
                     hintPopup();
                 }
@@ -687,7 +691,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         win = MediaPlayer.create(this, R.raw.sound_win);
         lose = MediaPlayer.create(this, R.raw.sound_lose);
         key = MediaPlayer.create(this, R.raw.sound_correct);
-
+        persianNumber = new PersianNumber();
         prefs = getSharedPreferences("StartActivity", 0);
         selectedLanguage = prefs.getString("language" , StartActivity.language[0]);
         no_score = prefs.getInt("no_score", 0);
@@ -700,7 +704,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         ivHangman = ((ImageView) findViewById(R.id.ivHangman));
         bHint = ((Button) findViewById(R.id.bHint));
         bHint.setOnClickListener(this);
-        bHint.setText("Hint (" + no_hint + ")");
+        bHint.setText(persianNumber.toPersianNumber(getString(R.string.hint) + " (" + no_hint + ")"));
         tvWord = ((TextView) findViewById(R.id.tvWord));
 
         tvCategory = ((TextView) findViewById(R.id.tvCategory));
@@ -758,7 +762,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 editor.putInt("no_hint", no_hint);
                 editor.putBoolean("rate", true);
                 editor.apply();
-                bHint.setText("Hint (" + no_hint + ")");
+                bHint.setText(persianNumber.toPersianNumber(getString(R.string.hint) + " (" + no_hint + ")"));
             }
         } else {
             return;
@@ -769,7 +773,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         editor = getSharedPreferences("StartActivity", 0).edit();
         editor.putInt("no_hint", no_hint);
         editor.apply();
-        bHint.setText("Hint (" + no_hint + ")");
+        bHint.setText(persianNumber.toPersianNumber(getString(R.string.hint) + " (" + no_hint + ")"));
     }
 
     @Override

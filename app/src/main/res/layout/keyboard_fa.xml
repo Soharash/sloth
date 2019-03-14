@@ -273,7 +273,7 @@
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/keyboard_button_margin"
-            android:layout_weight="15.0"
+            android:layout_weight="5.0"
             android:background="#00000000"
             android:textSize="@dimen/keyboard_font" />
 
@@ -389,7 +389,7 @@
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/keyboard_button_margin"
-            android:layout_weight="15.0"
+            android:layout_weight="5.0"
             android:background="#00000000"
             android:textSize="@dimen/keyboard_font" />
 
@@ -406,7 +406,7 @@
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/keyboard_button_margin"
-            android:layout_weight="15.0"
+            android:layout_weight="25.0"
             android:background="#00000000"
             android:textSize="@dimen/keyboard_font" />
         <Button
@@ -472,7 +472,7 @@
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/keyboard_button_margin"
-            android:layout_weight="15.0"
+            android:layout_weight="25.0"
             android:background="#00000000"
             android:textSize="@dimen/keyboard_font" />
 

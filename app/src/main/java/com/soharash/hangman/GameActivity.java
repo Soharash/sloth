@@ -3,6 +3,8 @@ package com.soharash.hangman;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,33 +30,9 @@ import java.util.List;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
-    Button bA;
-    Button bB;
-    Button bC;
-    Button bD;
-    Button bE;
-    Button bF;
-    Button bG;
-    Button bH;
+
     Button bHint;
-    Button bI;
-    Button bJ;
-    Button bK;
-    Button bL;
-    Button bM;
-    Button bN;
-    Button bO;
-    Button bP;
-    Button bQ;
-    Button bR;
-    Button bS;
-    Button bT;
-    Button bU;
-    Button bV;
-    Button bW;
-    Button bX;
-    Button bY;
-    Button bZ;
+
     String[] categories = DataContract.categories;
     String[] categoriesPersianNames;
     String category = "";
@@ -92,21 +71,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     String TAG = "GameActivity";
     String selectedLanguage;
     PersianNumber persianNumber;
-
-    private void checkLetter(String letter)
-    {
-        Log.i(TAG, "checkLetter: word " + word );
+    LinearLayout keyboard;
+    private void checkLetter(String letter) {
+        Log.i(TAG, "checkLetter: word " + word);
         int i = -1;
-        for (;;)
-        {
+        for (; ; ) {
             i = word.indexOf(letter, i + 1);
             if (i == -1) {
                 break;
             }
             hiddenWord = (hiddenWord.substring(0, i) + letter + hiddenWord.substring(i + 1));
         }
-        if (word.contains(letter))
-        {
+        if (word.contains(letter)) {
             score += 10;
             hint = hint.replace(letter, "");
             prepareHint();
@@ -115,8 +91,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
             tvScore.setText("" + score);
             tvWord.setText(hiddenWord);
-            if (word.equals(hiddenWord))
-            {
+            if (word.equals(hiddenWord)) {
                 if (120 - time > 0) {
                     score += 120 - time;
                 }
@@ -125,9 +100,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //                if (
 ////                        (!mInterstitialAd.isLoaded()) ||
 //                                (no_played % showAds != 0)) {
-                    finishGame(true);
-                   // break ;
-                    return;
+                finishGame(true);
+                // break ;
+                return;
 //                }
 //                mInterstitialAd.show();
             }
@@ -154,28 +129,28 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         switch (paramInt) {
             default:
                 ivHangman.setImageResource(R.drawable.h02_1);
-                return;
+                break;
             case 1:
                 ivHangman.setImageResource(R.drawable.h02_2);
-                return;
+                break;
             case 2:
                 ivHangman.setImageResource(R.drawable.h02_3);
-                return;
+                break;
             case 3:
                 ivHangman.setImageResource(R.drawable.h02_4);
-                return;
+                break;
             case 4:
                 ivHangman.setImageResource(R.drawable.h02_5);
-                return;
+                break;
             case 5:
                 ivHangman.setImageResource(R.drawable.h02_6);
-                return;
+                break;
             case 6:
                 ivHangman.setImageResource(R.drawable.h02_7);
                 endState = false;
                 //  ivHangman.setImageResource(R.drawable.h02_holder);
                 finishGame(false);
-                return;
+                break;
 //                if (
 ////                (mInterstitialAd.isLoaded()) &&
 //                        (no_played % showAds == 0)) {
@@ -195,6 +170,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //                finishGame(false);
 //                return;
         }
+        ivHangman.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
 //        endState = false;
 //        ivHangman.setImageResource(R.drawable.h02_holder);
 //        if (
@@ -228,13 +204,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             localIntent.putExtra("score", score);
             localIntent.putExtra("solved", no_correct + 1);
             localIntent.putExtra("correct", true);
-            Log.i(TAG, "finishGame: " + score + " " +  (score + no_score));
+            Log.i(TAG, "finishGame: " + score + " " + (score + no_score));
             startActivity(localIntent);
             finish();
-            overridePendingTransition( R.anim.slide_in_left , R.anim.slide_out_right );
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             return;
-        }
-        else {
+        } else {
             Log.i(TAG, "finishGame: false ");
             if (sound) {
                 lose.start();
@@ -250,121 +225,39 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             localIntent.putExtra("word", word);
             localIntent.putExtra("correct", false);
             localIntent.putExtra("score", score);
-            Log.i(TAG, "finishGame: " + score + " " +  (score + no_score));
+            Log.i(TAG, "finishGame: " + score + " " + (score + no_score));
             startActivity(localIntent);
             finish();
-            overridePendingTransition(  R.anim.slide_in_left,  R.anim.slide_out_right  );
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
     }
 
     private void hideLetter(String paramString) {
-        switch (paramString) {
-            case "A":
-                bA.setEnabled(false);
-                bA.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "B":
-                bB.setEnabled(false);
-                bB.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "C":
-                bC.setEnabled(false);
-                bC.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "D":
-                bD.setEnabled(false);
-                bD.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "E":
-                bE.setEnabled(false);
-                bE.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "F":
-                bF.setEnabled(false);
-                bF.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "G":
-                bG.setEnabled(false);
-                bG.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "H":
-                bH.setEnabled(false);
-                bH.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "I":
-                bI.setEnabled(false);
-                bI.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "J":
-                bJ.setEnabled(false);
-                bJ.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "K":
-                bK.setEnabled(false);
-                bK.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "L":
-                bL.setEnabled(false);
-                bL.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "M":
-                bM.setEnabled(false);
-                bM.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "N":
-                bN.setEnabled(false);
-                bN.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "O":
-                bO.setEnabled(false);
-                bO.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "P":
-                bP.setEnabled(false);
-                bP.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "Q":
-                bQ.setEnabled(false);
-                bQ.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "R":
-                bR.setEnabled(false);
-                bR.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "S":
-                bS.setEnabled(false);
-                bS.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "T":
-                bT.setEnabled(false);
-                bT.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "U":
-                bU.setEnabled(false);
-                bU.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "V":
-                bV.setEnabled(false);
-                bV.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "W":
-                bW.setEnabled(false);
-                bW.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "X":
-                bX.setEnabled(false);
-                bX.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "Y":
-                bY.setEnabled(false);
-                bY.setBackgroundResource(R.drawable.keyboard_off);
-                break;
-            case "Z":
-                bZ.setEnabled(false);
-                bZ.setBackgroundResource(R.drawable.keyboard_off);
-                break;
+        Log.i(TAG, "hideLetter: keyboard ");
+       boolean found = false;
+        for(int j = 0 ;j < keyboard.getChildCount();j++)
+        {
+
+            if(keyboard.getChildAt(j) instanceof LinearLayout)
+            {
+                LinearLayout row = (LinearLayout) keyboard.getChildAt(j);
+                for( int i = 0 ;i < row.getChildCount() ; i++ ) {
+                    if (row.getChildAt(i) instanceof Button && ((Button) row.getChildAt(i)).getText().toString().equals(paramString)) {
+                        Log.i(TAG, "hideLetter: " + ((Button) row.getChildAt(i)).getText());
+                        row.getChildAt(i).setEnabled(false);
+                        row.getChildAt(i).setBackgroundResource(R.drawable.keyboard_off);
+                        found = true;
+                        break;
+
+                    }
+                }
+                if(found)
+                    break;
+            }
 
         }
+
+//
     }
 
     private void hintLogic() {
@@ -397,8 +290,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
                     share = 1;
                     paramAnonymousDialogInterface.dismiss();
-                 //   paramAnonymousDialogInterface = new Intent("android.intent.action.VIEW", Uri.parse("market://details?id=com.klikapp.hangman2"));
-                  //  GameActivity.startActivity(paramAnonymousDialogInterface);
+                    //   paramAnonymousDialogInterface = new Intent("android.intent.action.VIEW", Uri.parse("market://details?id=com.klikapp.hangman2"));
+                    //  GameActivity.startActivity(paramAnonymousDialogInterface);
                 }
             }).setNegativeButton("No, thanks", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
@@ -413,7 +306,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
                 share = 1;
                 paramAnonymousDialogInterface.dismiss();
-              //  paramAnonymousDialogInterface = new Intent("android.intent.action.SEND");
+                //  paramAnonymousDialogInterface = new Intent("android.intent.action.SEND");
 //                paramAnonymousDialogInterface.setType("text/plain");
 //                paramAnonymousDialogInterface.putExtra("android.intent.extra.SUBJECT", "Try Hangman Free");
 //                paramAnonymousDialogInterface.putExtra("android.intent.extra.TEXT", "Check out my new favorite Hangman GameActivity! Try it for free http://bit.ly/GetHangmanFree");
@@ -427,71 +320,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         localBuilder.create().show();
     }
 
-    private void initKeyboard() {
-//        LinearLayout row1 = findViewById(R.id.row1);
-//        LinearLayout row2 = findViewById(R.id.row2);
-//        LinearLayout row3 = findViewById(R.id.row3);
-//        LinearLayout row4 = findViewById(R.id.row4);
-//
-//        for(int i = 0 ; i < row1.getChildCount() ; i++)
-//        {
-//            View v = row1.getChildAt(i);
-//            v.setOnClickListener(this);
-//
-//        }
-        bQ = ((Button) findViewById(R.id.bQ));
-        bW = ((Button) findViewById(R.id.bW));
-        bE = ((Button) findViewById(R.id.bE));
-        bR = ((Button) findViewById(R.id.bR));
-        bT = ((Button) findViewById(R.id.bT));
-        bY = ((Button) findViewById(R.id.bY));
-        bU = ((Button) findViewById(R.id.bU));
-        bI = ((Button) findViewById(R.id.bI));
-        bO = ((Button) findViewById(R.id.bO));
-        bP = ((Button) findViewById(R.id.bP));
-        bA = ((Button) findViewById(R.id.bA));
-        bS = ((Button) findViewById(R.id.bS));
-        bD = ((Button) findViewById(R.id.bD));
-        bF = ((Button) findViewById(R.id.bF));
-        bG = ((Button) findViewById(R.id.bG));
-        bH = ((Button) findViewById(R.id.bH));
-        bJ = ((Button) findViewById(R.id.bJ));
-        bK = ((Button) findViewById(R.id.bK));
-        bL = ((Button) findViewById(R.id.bL));
-        bZ = ((Button) findViewById(R.id.bZ));
-        bX = ((Button) findViewById(R.id.bX));
-        bC = ((Button) findViewById(R.id.bC));
-        bV = ((Button) findViewById(R.id.bV));
-        bB = ((Button) findViewById(R.id.bB));
-        bN = ((Button) findViewById(R.id.bN));
-        bM = ((Button) findViewById(R.id.bM));
-//        bQ.setOnClickListener(this);
-//        bW.setOnClickListener(this);
-//        bE.setOnClickListener(this);
-//        bR.setOnClickListener(this);
-//        bT.setOnClickListener(this);
-//        bY.setOnClickListener(this);
-//        bU.setOnClickListener(this);
-//        bI.setOnClickListener(this);
-//        bO.setOnClickListener(this);
-//        bP.setOnClickListener(this);
-//        bA.setOnClickListener(this);
-//        bS.setOnClickListener(this);
-//        bD.setOnClickListener(this);
-//        bF.setOnClickListener(this);
-//        bG.setOnClickListener(this);
-//        bH.setOnClickListener(this);
-//        bJ.setOnClickListener(this);
-//        bK.setOnClickListener(this);
-//        bL.setOnClickListener(this);
-//        bZ.setOnClickListener(this);
-//        bX.setOnClickListener(this);
-//        bC.setOnClickListener(this);
-//        bV.setOnClickListener(this);
-//        bB.setOnClickListener(this);
-//        bN.setOnClickListener(this);
-//        bM.setOnClickListener(this);
-    }
+
 
     private void prepareHint() {
         hint = hint.replace(" ", "");
@@ -503,16 +332,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void onBackPressed() {
         AlertDialog.Builder localBuilder = new AlertDialog.Builder(this);
-        localBuilder.setMessage("Are you sure you want to exit?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        localBuilder.setMessage(getString(R.string.exit_message)).setCancelable(false).setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
                 editor = getSharedPreferences("StartActivity", 0).edit();
                 editor.putInt("no_hint", no_hint);
                 editor.apply();
                 paramAnonymousDialogInterface.dismiss();
                 finish();
-                overridePendingTransition(   R.anim.slide_in_left , R.anim.slide_out_right );
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
-        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+        }).setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
                 paramAnonymousDialogInterface.cancel();
             }
@@ -522,158 +351,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void onClick(View v) {
 
-       if(v.getId() == R.id.bHint)
+        if (v.getId() == R.id.bHint)
             hintLogic();
-       else {
+        else {
             Button button = (Button) v;
             checkLetter(button.getText().toString());
             button.setEnabled(false);
             button.setBackgroundResource(R.drawable.keyboard_off);
         }
 
-
-//        switch (paramView.getId()) {
-//            default:
-//                return;
-//            case R.id.bQ:
-//                Log.i(TAG, "onClick: bq " + bQ.getText().toString());
-//                checkLetter(bQ.getText().toString());
-//                bQ.setEnabled(false);
-//                bQ.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bW:
-//                checkLetter(bW.getText().toString());
-//                bW.setEnabled(false);
-//                bW.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bE:
-//                checkLetter(bQ.getText().toString());
-//                bE.setEnabled(false);
-//                bE.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bR:
-//                checkLetter(bQ.getText().toString());
-//                bR.setEnabled(false);
-//                bR.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bT:
-//                checkLetter(bQ.getText().toString());
-//                bT.setEnabled(false);
-//                bT.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bY:
-//                checkLetter(bQ.getText().toString());
-//                bY.setEnabled(false);
-//                bY.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bU:
-//                checkLetter(bQ.getText().toString());
-//                bU.setEnabled(false);
-//                bU.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bI:
-//                checkLetter(bQ.getText().toString());
-//                bI.setEnabled(false);
-//                bI.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bO:
-//                checkLetter(bQ.getText().toString());
-//                bO.setEnabled(false);
-//                bO.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bP:
-//                checkLetter(bQ.getText().toString());
-//                bP.setEnabled(false);
-//                bP.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bA:
-//                checkLetter(bQ.getText().toString());
-//                bA.setEnabled(false);
-//                bA.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bS:
-//                checkLetter(bQ.getText().toString());
-//                bS.setEnabled(false);
-//                bS.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bD:
-//                checkLetter(bQ.getText().toString());
-//                bD.setEnabled(false);
-//                bD.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bF:
-//                checkLetter(bQ.getText().toString());
-//                bF.setEnabled(false);
-//                bF.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bG:
-//                checkLetter(bQ.getText().toString());
-//                bG.setEnabled(false);
-//                bG.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bH:
-//                checkLetter("H");
-//                bH.setEnabled(false);
-//                bH.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bJ:
-//                checkLetter("J");
-//                bJ.setEnabled(false);
-//                bJ.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bK:
-//                checkLetter("K");
-//                bK.setEnabled(false);
-//                bK.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bL:
-//                checkLetter("L");
-//                bL.setEnabled(false);
-//                bL.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bZ:
-//                checkLetter("Z");
-//                bZ.setEnabled(false);
-//                bZ.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bX:
-//                checkLetter("X");
-//                bX.setEnabled(false);
-//                bX.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bC:
-//                checkLetter("C");
-//                bC.setEnabled(false);
-//                bC.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bV:
-//                checkLetter("V");
-//                bV.setEnabled(false);
-//                bV.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bB:
-//                checkLetter("B");
-//                bB.setEnabled(false);
-//                bB.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bN:
-//                checkLetter("N");
-//                bN.setEnabled(false);
-//                bN.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bM:
-//                checkLetter("M");
-//                bM.setEnabled(false);
-//                bM.setBackgroundResource(R.drawable.keyboard_off);
-//                return;
-//            case R.id.bHint:
-
-//        }
-//        if (secret == 10) {
-//            Toast.makeText(this, "" + word, 0).show();
-//            return;
-//        }
-//        secret += 1;
     }
 
     @Override
@@ -685,15 +371,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //        tvCategory.setOnClickListener(this);
     }
 
-    private void init()
-    {
+    private void init() {
+        keyboard = findViewById(R.id.fa_keyboard);
+
+        ((ImageView) findViewById(R.id.ivHolder)).setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
         categoriesPersianNames = getResources().getStringArray(R.array.categories);
         win = MediaPlayer.create(this, R.raw.sound_win);
         lose = MediaPlayer.create(this, R.raw.sound_lose);
         key = MediaPlayer.create(this, R.raw.sound_correct);
         persianNumber = new PersianNumber();
         prefs = getSharedPreferences("StartActivity", 0);
-        selectedLanguage = prefs.getString("language" , StartActivity.language[0]);
+        selectedLanguage = prefs.getString("language", StartActivity.language[1]);
         no_score = prefs.getInt("no_score", 0);
         no_correct = prefs.getInt("no_correct", 0);
         no_played = prefs.getInt("no_played", 0);
@@ -714,13 +402,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         category = prefs.getString("category", categories[0]);
 
         word = PrepareWord.getWord(getApplicationContext(), category).toUpperCase().trim();
-        initKeyboard();
+
         hiddenWord = PrepareWord.prepare(word);
-        tvCategory.setText(Utils.getStringResourceID(getApplicationContext() , category.toLowerCase()));
+        tvCategory.setText(Utils.getStringResourceID(getApplicationContext(), category.toLowerCase()));
         tvWord.setText(hiddenWord);
         h = new Handler();
         r = new Runnable() {
             public void run() {
+                time++;
                 tvTime.setText("" + time);
                 h.postDelayed(this, 1000L);
             }
@@ -732,8 +421,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //        initAdMob();
     }
 
-    private void initAdMob()
-    {
+    private void initAdMob() {
         //        mAdView = ((AdView)findViewById(2131165210));
 //        paramBundle = new AdRequest.Builder().addTestDevice("041422AA685448ADC53C7E51B28FC5D8").build();
 //        mAdView.loadAd(paramBundle);

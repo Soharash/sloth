@@ -5,8 +5,8 @@
 
     <string name="hint">راهنمایی</string>
     <string name="translate">ترجمه</string>
-    <string name="correct">صحیح!</string>
-    <string name="wrong">اشتباه!</string>
+    <string name="correct">درسته!</string>
+    <string name="wrong">غلطه!</string>
     <string name="new_hint">1+ راهنمایی جدید!</string>
     <string name="choose_category">انتخاب دسته:</string>
     <string name="start_game">شروع بازی</string>
@@ -26,9 +26,15 @@
     <string name="sport">ورزش ها</string>
     <string name="kitchen">وسایل آشپزخانه</string>
     <string name="jobs">شغل ها</string>
+    <string name="fruit">میوه ها</string>
+    <string name="colors">رنگ ها</string>
+    <string name="body">اعضای بدن</string>
 
 
     <string name="enjoy_hangman">از هنگ من خوشت میاد؟</string>
     <string name="yes">آره!</string>
     <string name="not_really">نه خیلی</string>
+
+    <string name="exit_message">مطمئنی میخوای از این صفحه خارج بشی؟</string>
+    <string name="no">نه!</string>
 </resources>

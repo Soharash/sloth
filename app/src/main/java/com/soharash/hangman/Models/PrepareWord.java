@@ -43,7 +43,7 @@ public class PrepareWord {
     {
         SharedPreferences prefs = context.getSharedPreferences("StartActivity" , MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        String language = prefs.getString("language", StartActivity.language[0]);
+        String language = prefs.getString("language", StartActivity.language[1]);
         editor.putString("random_language" , language).apply();
         if(language.equals(StartActivity.language[0]))
             return word.word;

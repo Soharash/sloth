@@ -53,18 +53,18 @@ public class FinishActivity
     private void nextPuzzle() {
         startActivity(new Intent(getApplicationContext(), GameActivity.class));
         finish();
-        overridePendingTransition( R.anim.slide_out_right , R.anim.slide_in_left  );
+//        overridePendingTransition( R.anim.slide_out_right , R.anim.slide_in_left  );
     }
 
     public void onBackPressed() {
         AlertDialog.Builder localBuilder = new AlertDialog.Builder(this);
-        localBuilder.setMessage("Are you sure you want to exit?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        localBuilder.setMessage(getString(R.string.exit_message)).setCancelable(false).setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
                 paramAnonymousDialogInterface.dismiss();
                 finish();
                 overridePendingTransition(R.anim.tooltip_enter, R.anim.tooltip_exit);
             }
-        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+        }).setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
                 paramAnonymousDialogInterface.cancel();
             }
@@ -221,14 +221,14 @@ public class FinishActivity
         no_score = prefs.getInt("no_score", 0);
         no_correct = prefs.getInt("no_correct", 0);
         no_played = prefs.getInt("no_played", 0);
-        bNextPuzzle = ((Button) findViewById(R.id.bNextPuzzle));
-        bFindMore = ((Button) findViewById(R.id.bFindMore));
-        llRate = ((LinearLayout) findViewById(R.id.llRate));
-        tvStatus = ((TextView) findViewById(R.id.tvStatus));
-        tvAnswer = ((TextView) findViewById(R.id.tvAnswer));
-        tvSolved = ((TextView) findViewById(R.id.tvSolved));
-        tvScore = ((TextView) findViewById(R.id.tvScore));
-        tvHint = ((TextView) findViewById(R.id.tvHint));
+        bNextPuzzle =  findViewById(R.id.bNextPuzzle);
+        bFindMore =  findViewById(R.id.bFindMore);
+        llRate =  findViewById(R.id.llRate);
+        tvStatus =  findViewById(R.id.tvStatus);
+        tvAnswer =  findViewById(R.id.tvAnswer);
+        tvSolved =  findViewById(R.id.tvSolved);
+        tvScore =  findViewById(R.id.tvScore);
+        tvHint =  findViewById(R.id.tvHint);
         statusImage = findViewById(R.id.status_image);
         statusImage.setColorFilter(Color.WHITE , PorterDuff.Mode.SRC_IN);
         tvHint.setText(persianNumber.toPersianNumber(getString(R.string.new_hint)));

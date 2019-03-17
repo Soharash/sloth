@@ -43,6 +43,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 //    TextView tvDifficulty;
 
 
+
     public void onBackPressed() {
         AlertDialog.Builder localBuilder = new AlertDialog.Builder(this);
         localBuilder.setMessage("Are you sure you want to exit?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -151,7 +152,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             bSettings.setOnClickListener(this);
             selectedCategory = prefs.getString("category", categories[0]);
             bCategories.setText(Utils.getStringResourceID(this , selectedCategory.toLowerCase()));
-            selectedLanguage = prefs.getString("language", language[0]);
+            selectedLanguage = prefs.getString("language", language[1]);
             bLanguage.setText(selectedLanguage);
 //            String difficulty = prefs.getString("difficulty", difficulty[0]);
 //            bDifficulty.setText(difficulty);

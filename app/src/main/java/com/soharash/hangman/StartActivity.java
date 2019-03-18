@@ -46,12 +46,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     public void onBackPressed() {
         AlertDialog.Builder localBuilder = new AlertDialog.Builder(this);
-        localBuilder.setMessage("Are you sure you want to exit?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        localBuilder.setMessage(getString(R.string.exit_message)).setCancelable(false).setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int paramAnonymousInt) {
                 dialogInterface.dismiss();
                 finish();
             }
-        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+        }).setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int paramAnonymousInt) {
                 dialogInterface.cancel();
             }

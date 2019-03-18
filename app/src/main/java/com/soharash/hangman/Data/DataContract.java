@@ -7,7 +7,7 @@ import android.provider.BaseColumns;
  */
 
 public final class DataContract {
-    public static String[] categories = {"Animals",  "Countries","Food", "Sport", "Kitchen", "Jobs" , "Fruit" , "Colors" , "Body"};
+    public static String[] categories = {"Animals",  "Countries","Food", "Sport", "Kitchen", "Jobs" , "Fruit" , "Colors" , "Body" , "Flowers"};
     private DataContract()
     {}
     public static final class DataEntry implements BaseColumns

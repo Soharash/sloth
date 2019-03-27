@@ -1,11 +1,12 @@
-package com.soharash.hangman.CustomViews;
+package com.soha.hangman.CustomViews;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
-import com.soharash.hangman.Helper.Utils;
+import com.soha.hangman.Helper.Utils;
+
+import androidx.appcompat.widget.AppCompatTextView;
 
 public class CustomTextView extends AppCompatTextView {
     int style = Typeface.NORMAL;

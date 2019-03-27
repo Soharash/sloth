@@ -1,4 +1,4 @@
-package com.soharash.hangman.Data;
+package com.soha.hangman.Data;
 
 import android.provider.BaseColumns;
 

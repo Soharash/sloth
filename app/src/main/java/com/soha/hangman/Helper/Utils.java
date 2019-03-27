@@ -1,4 +1,4 @@
-package com.soharash.hangman.Helper;
+package com.soha.hangman.Helper;
 
 import android.content.Context;
 

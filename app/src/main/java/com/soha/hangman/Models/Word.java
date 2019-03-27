@@ -1,4 +1,4 @@
-package com.soharash.hangman.Models;
+package com.soha.hangman.Models;
 
 public class Word {
 

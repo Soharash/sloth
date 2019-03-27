@@ -1,4 +1,4 @@
-package com.soharash.hangman.Helper;
+package com.soha.hangman.Helper;
 
 public class PersianNumber {
     private static String[] persianNumbers = new String[]{"۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"};

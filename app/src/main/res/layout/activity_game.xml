@@ -38,7 +38,7 @@
                 android:textColor="#ffffffff" />
         </LinearLayout>
 
-        <com.soharash.hangman.CustomViews.CustomTextView
+        <com.soha.hangman.CustomViews.CustomTextView
             android:id="@+id/tvCategory"
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
       android:gravity="center_vertical"
         android:layout_above="@id/tvWord">
 
-        <com.soharash.hangman.CustomViews.CustomButton
+        <com.soha.hangman.CustomViews.CustomButton
             android:id="@+id/bHint"
             android:layout_width="80.0dip"
             android:layout_height="30dip"
@@ -123,7 +123,7 @@
             android:tag="1"
             android:textSize="14.0dp" />
 
-        <com.soharash.hangman.CustomViews.CustomButton
+        <com.soha.hangman.CustomViews.CustomButton
             android:id="@+id/bTranslate"
             android:layout_width="74dp"
             android:layout_height="30dp"
@@ -138,7 +138,7 @@
             android:textSize="14.0dp" />
     </RelativeLayout>
 
-    <com.soharash.hangman.CustomViews.CustomTextView
+    <com.soha.hangman.CustomViews.CustomTextView
         android:id="@+id/tvWord"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

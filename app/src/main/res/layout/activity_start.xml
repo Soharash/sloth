@@ -6,7 +6,7 @@
     android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-    <com.soharash.hangman.CustomViews.CustomTextView
+    <com.soha.hangman.CustomViews.CustomTextView
         android:id="@+id/tvLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <com.soharash.hangman.CustomViews.CustomTextView
+        <com.soha.hangman.CustomViews.CustomTextView
             android:id="@+id/tvCategories"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
             android:textColor="#ffffffff"
             android:textSize="22.0sp" />
 
-        <com.soharash.hangman.CustomViews.CustomButton
+        <com.soha.hangman.CustomViews.CustomButton
             android:id="@+id/bCategories"
             android:tag="2"
             android:layout_width="fill_parent"
@@ -80,7 +80,7 @@
         android:visibility="gone"
         android:orientation="vertical">
 
-        <com.soharash.hangman.CustomViews.CustomTextView
+        <com.soha.hangman.CustomViews.CustomTextView
             android:id="@+id/tvLanguage"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
             android:textColor="#ffffffff"
             android:textSize="25.0sp" />
 
-        <com.soharash.hangman.CustomViews.CustomButton
+        <com.soha.hangman.CustomViews.CustomButton
             android:id="@+id/bLanguage"
             android:tag="2"
             android:layout_width="fill_parent"
@@ -102,7 +102,7 @@
             android:textSize="25.0sp" />
 
     </LinearLayout>
-    <com.soharash.hangman.CustomViews.CustomButton
+    <com.soha.hangman.CustomViews.CustomButton
         android:id="@+id/bStart"
         android:tag="2"
         android:layout_width="fill_parent"
@@ -129,7 +129,7 @@
         android:orientation="horizontal"
         android:visibility="gone">
 
-        <com.soharash.hangman.CustomViews.CustomButton
+        <com.soha.hangman.CustomViews.CustomButton
             android:tag="2"
             android:id="@+id/bMultiplayer"
             android:layout_width="fill_parent"
@@ -142,7 +142,7 @@
             android:text="2 PLAYERS"
             android:textSize="25.0sp" />
 
-        <com.soharash.hangman.CustomViews.CustomButton
+        <com.soha.hangman.CustomViews.CustomButton
             android:tag="2"
             android:id="@+id/bSettings"
             android:layout_width="fill_parent"

@@ -1,26 +1,26 @@
-package com.soharash.hangman.CustomViews;
+package com.soha.hangman.CustomViews;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 
-import com.soharash.hangman.Helper.Utils;
+import com.soha.hangman.Helper.Utils;
 
-public class CustomButton extends AppCompatButton {
+import androidx.appcompat.widget.AppCompatEditText;
+
+public class CustomEditText extends AppCompatEditText {
     int style = Typeface.NORMAL;
-
-    public CustomButton(Context context, AttributeSet attrs, int defStyle) {
+    public CustomEditText(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
 
-    public CustomButton(Context context, AttributeSet attrs) {
+    public CustomEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public CustomButton(Context context) {
+    public CustomEditText(Context context) {
         super(context);
         init();
     }
@@ -33,7 +33,7 @@ public class CustomButton extends AppCompatButton {
             tf = Typeface.createFromAsset(getContext().getAssets(), Utils.font1);
         else
             tf = Typeface.createFromAsset(getContext().getAssets(), Utils.font2);
-        setTypeface(tf, style);
+        setTypeface(tf , style);
 
     }
 }

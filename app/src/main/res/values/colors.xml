@@ -3,7 +3,9 @@
 
     <color name="colorAccent">#4c8f99</color>
     <color name="colorPrimary">#15454d</color>
-    <color name="colorPrimaryDark">#2d3638</color>
+    <color name="colorPrimaryDark">#0f3b42</color>
+
+    <color name="navigationbar_color">@color/colorPrimaryDark</color>
 
     <color name="colorKeyboard">#ffffff</color>
 

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     
     <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:soundEffectsEnabled">false</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor" tools:targetApi="21">@color/navigationbar_color</item>
     </style>
 
 </resources>

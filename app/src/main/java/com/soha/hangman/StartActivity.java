@@ -1,20 +1,30 @@
 package com.soha.hangman;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.soha.hangman.Data.DataContract;
 import com.soha.hangman.Helper.PersianNumber;
 import com.soha.hangman.Helper.Utils;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -63,24 +73,59 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     AlertDialog.Builder builder;
 
+
+    private void showCategoriesDialog()
+    {
+        final Dialog dialog = new Dialog(this);
+        View view = getLayoutInflater().inflate(R.layout.category_dialog , null);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            dialog.getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        }
+
+        ListView listView = view.findViewById(R.id.list_view);
+        TextView textView = view.findViewById(R.id.title);
+        textView.setText(persianNumber.toPersianNumber(categories.length +  " " + getString(R.string.category)));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this , R.layout.list_item , categoriesPersianNames );
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedCategory = categoriesPersianNames[position];
+                bCategories.setText(selectedCategory);
+                editor = getSharedPreferences("StartActivity", 0).edit();
+                editor.putString("category", categories[position]);
+                editor.apply();
+                editor.putString("item_category", categories[position]);
+                dialog.dismiss();
+            }
+        });
+        dialog.setContentView(view);
+        dialog.show();
+    }
+
+
     public void onClick(View view) {
         switch (view.getId()) {
             default:
                 return;
             case R.id.bCategories:
-                builder = new AlertDialog.Builder(this);
-                builder.setTitle(persianNumber.toPersianNumber(categories.length + getString(R.string.category)));
-                builder.setItems(categoriesPersianNames, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogInterface, int index) {
-                        selectedCategory = categoriesPersianNames[index];
-                        bCategories.setText(selectedCategory);
-                        editor = getSharedPreferences("StartActivity", 0).edit();
-                        editor.putString("category", categories[index]);
-                        editor.apply();
-                        editor.putString("item_category", categories[index]);
-                    }
-                });
-                builder.show();
+                showCategoriesDialog();
+//                builder = new AlertDialog.Builder(this);
+//                builder.setTitle(persianNumber.toPersianNumber(categories.length + getString(R.string.category)));
+//                builder.setItems(categoriesPersianNames, new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialogInterface, int index) {
+//                        selectedCategory = categoriesPersianNames[index];
+//                        bCategories.setText(selectedCategory);
+//                        editor = getSharedPreferences("StartActivity", 0).edit();
+//                        editor.putString("category", categories[index]);
+//                        editor.apply();
+//                        editor.putString("item_category", categories[index]);
+//                    }
+//                });
+//                builder.show();
                 return;
 //            case R.id.bDifficulty:
 //                builder = new AlertDialog.Builder(this);

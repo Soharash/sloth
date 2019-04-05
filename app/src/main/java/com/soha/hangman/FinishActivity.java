@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.soha.hangman.Helper.PersianNumber;
+import com.soha.hangman.Helper.Utils;
 import com.soha.hangman.Models.PrepareWord;
 import com.soha.hangman.Models.Word;
 
@@ -54,6 +55,7 @@ public class FinishActivity
     Word word;
     PersianNumber persianNumber;
     ImageView statusImage;
+    String selectedLanguage;
 
     private void nextPuzzle() {
         startActivity(new Intent(getApplicationContext(), GameActivity.class));
@@ -77,11 +79,19 @@ public class FinishActivity
         localBuilder.create().show();
     }
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
+        selectedLanguage = getSharedPreferences("StartActivity", MODE_PRIVATE).getString("language", StartActivity.language[1]);
+        if (selectedLanguage.equals(StartActivity.language[1])) {
+//            Utils.forceRtlIfSupported(this);
+            Utils.changeLocale(this, StartActivity.languageCodes[1]);
+        } else {
+//            Utils.forceLtrIfSupported(this);
+            Utils.changeLocale(this, StartActivity.languageCodes[0]);
+        }
+        Utils.forceLtrIfSupported(this);
         setContentView(R.layout.activity_finish);
         Intent intent = getIntent();
         try {
@@ -219,7 +229,7 @@ public class FinishActivity
 
     private void init(Intent intent)
     {
-        persianNumber = new PersianNumber();
+        persianNumber = new PersianNumber(this);
         word = intent.getParcelableExtra("word");
         correct = intent.getExtras().getBoolean("correct");
         score = intent.getExtras().getInt("score");

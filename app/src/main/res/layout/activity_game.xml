@@ -78,8 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/buttons_layout"
-        android:layout_below="@id/linearLayout"
-       >
+        android:layout_below="@id/linearLayout">
 
         <ImageView
             android:id="@+id/ivHolder"
@@ -101,14 +100,15 @@
 
 
     </RelativeLayout>
+
     <RelativeLayout
+        android:id="@+id/buttons_layout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:id="@+id/buttons_layout"
-        android:paddingRight="16dp"
+        android:layout_above="@id/tvWord"
+        android:gravity="center_vertical"
         android:paddingLeft="16dp"
-      android:gravity="center_vertical"
-        android:layout_above="@id/tvWord">
+        android:paddingRight="16dp">
 
         <com.soha.hangman.CustomViews.CustomButton
             android:id="@+id/bHint"
@@ -117,11 +117,11 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:background="@drawable/hint"
+            android:tag="2"
             android:text="@string/hint"
             android:textColor="@android:color/black"
-            android:textStyle="bold"
-            android:tag="1"
-            android:textSize="14.0dp" />
+            android:textSize="14.0dp"
+            android:textStyle="bold" />
 
         <com.soha.hangman.CustomViews.CustomButton
             android:id="@+id/bTranslate"
@@ -130,12 +130,12 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:background="@drawable/hint"
+            android:tag="2"
             android:text="@string/translate"
-            android:textStyle="bold"
-            android:tag="1"
-            android:visibility="visible"
             android:textColor="@android:color/black"
-            android:textSize="14.0dp" />
+            android:textSize="14.0dp"
+            android:textStyle="bold"
+            android:visibility="visible" />
     </RelativeLayout>
 
     <com.soha.hangman.CustomViews.CustomTextView
@@ -161,20 +161,22 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true">
 
-        <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:id="@+id/en_keyboard"-->
-        <!--android:visibility="gone"-->
-        <!--android:layout_height="wrap_content">-->
-        <!--<include layout="@layout/keyboard"/>-->
-        <!--</LinearLayout>-->
         <LinearLayout
+            android:id="@+id/en_keyboard_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <include layout="@layout/keyboard" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fa_keyboard_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="visible">
 
             <include
-
                 layout="@layout/keyboard_fa" />
         </LinearLayout>
     </RelativeLayout>

@@ -41,7 +41,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     Button bLanguage;
     String[] categories = DataContract.categories;
     String[] categoriesPersianNames;
-    public static String[] language = new String[]{"English", "فارسی", "Random - تصادفی"};
+    public static String[] language = new String[]{"english", "فارسی"};
+    public static String[] languageCodes = new String[]{"en", "fa"};
 
     //    String[] difficulty = { "Easy", "Medium", "Hard" };
     SharedPreferences.Editor editor;
@@ -53,7 +54,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     String selectedLanguage;
     PersianNumber persianNumber;
 //    TextView tvDifficulty;
-
 
 
     public void onBackPressed() {
@@ -74,10 +74,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     AlertDialog.Builder builder;
 
 
-    private void showCategoriesDialog()
-    {
+    private void showCategoriesDialog() {
         final Dialog dialog = new Dialog(this);
-        View view = getLayoutInflater().inflate(R.layout.category_dialog , null);
+        View view = getLayoutInflater().inflate(R.layout.category_dialog, null);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -87,8 +86,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
         ListView listView = view.findViewById(R.id.list_view);
         TextView textView = view.findViewById(R.id.title);
-        textView.setText(persianNumber.toPersianNumber(categories.length +  " " + getString(R.string.category)));
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this , R.layout.list_item , categoriesPersianNames );
+        textView.setText(persianNumber.toPersianNumber(categories.length + " " + getString(R.string.category)));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item, categoriesPersianNames);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -104,6 +103,45 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         });
         dialog.setContentView(view);
         dialog.show();
+    }
+
+    private void showLanguageDialog() {
+        final Dialog dialog = new Dialog(this);
+        View view = getLayoutInflater().inflate(R.layout.category_dialog, null);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            dialog.getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        }
+
+        ListView listView = view.findViewById(R.id.list_view);
+        TextView textView = view.findViewById(R.id.title);
+        textView.setText(getString(R.string.language));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item, language);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedLanguage = language[position];
+                applyLanguage(position);
+                dialog.dismiss();
+            }
+        });
+        dialog.setContentView(view);
+        dialog.show();
+    }
+
+    private void applyLanguage(int position) {
+        String beforeLanguage = getSharedPreferences("StartActivity", MODE_PRIVATE).getString("language", language[1]);
+        editor = getSharedPreferences("StartActivity", MODE_PRIVATE).edit();
+        editor.putString("language", language[position]);
+        editor.apply();
+        if (!beforeLanguage.equals(selectedLanguage)) {
+            Intent intent = new Intent(this, StartActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
 
@@ -161,19 +199,21 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 }
                 break;
             case R.id.bLanguage:
-                builder = new AlertDialog.Builder(this);
-                builder.setTitle("Language:");
-                builder.setItems(language, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogInterface, int index) {
-                        selectedLanguage = language[index];
-                        bLanguage.setText(selectedLanguage);
-                        editor = getSharedPreferences("StartActivity", MODE_PRIVATE).edit();
-                        editor.putString("language", language[index]);
-                        editor.apply();
-                        //  editor.putString("item_category", language.get(index));
-                    }
-                });
-                builder.show();
+                showLanguageDialog();
+//                builder = new AlertDialog.Builder(this);
+//                builder.setTitle("Language:");
+//                builder.setItems(language, new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialogInterface, int index) {
+//                        selectedLanguage = language[index];
+//                        bLanguage
+// .setText(selectedLanguage);
+//                        editor = getSharedPreferences("StartActivity", MODE_PRIVATE).edit();
+//                        editor.putString("language", language[index]);
+//                        editor.apply();
+//                        //  editor.putString("item_category", language.get(index));
+//                    }
+//                });
+//                builder.show();
                 break;
         }
 
@@ -182,6 +222,15 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String beforeLanguage = getSharedPreferences("StartActivity", MODE_PRIVATE).getString("language", language[1]);
+        if (beforeLanguage.equals(language[1])) {
+//            Utils.forceRtlIfSupported(this);
+            Utils.changeLocale(this, languageCodes[1]);
+        } else {
+//            Utils.forceLtrIfSupported(this);
+            Utils.changeLocale(this, languageCodes[0]);
+        }
+        Utils.forceLtrIfSupported(this);
         // OneSignal.startInit(this).inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification).unsubscribeWhenNotificationsAreDisabled(true).init();
         setContentView(R.layout.activity_start);
         init();
@@ -198,7 +247,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             bMultiplayer.setOnClickListener(this);
             bSettings.setOnClickListener(this);
             selectedCategory = prefs.getString("category", categories[0]);
-            bCategories.setText(Utils.getStringResourceID(this , selectedCategory.toLowerCase()));
+            bCategories.setText(Utils.getStringResourceID(this, selectedCategory.toLowerCase()));
             selectedLanguage = prefs.getString("language", language[1]);
             bLanguage.setText(selectedLanguage);
 //            String difficulty = prefs.getString("difficulty", difficulty[0]);
@@ -210,7 +259,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void init() {
-        persianNumber = new PersianNumber();
+        persianNumber = new PersianNumber(this);
         categoriesPersianNames = getResources().getStringArray(R.array.categories);
         prefs = getSharedPreferences("StartActivity", 0);
 //        FirstStart.shuffleWords(getApplicationContext());
@@ -225,5 +274,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         bSettings = findViewById(R.id.bSettings);
         ibSound = findViewById(R.id.ibSound);
         ibNoSound = findViewById(R.id.ibClose);
+
+
     }
 }

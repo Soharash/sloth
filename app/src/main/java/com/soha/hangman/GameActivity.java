@@ -83,6 +83,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     PersianNumber persianNumber;
     LinearLayout keyboard;
 
+
     private void checkLetter(String letter) {
         Log.i(TAG, "checkLetter: word " + word);
         int i = -1;
@@ -276,7 +277,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             if (no_hint > 0) {
                 no_hint -= 1;
                 int i = hintList.size();
-                i = new Random().nextInt(i - 1 ) + 1;
+                i = new Random().nextInt(i - 1) + 1;
                 hideLetter((String) hintList.get(i));
                 checkLetter((String) hintList.get(i));
                 bHint.setText(persianNumber.toPersianNumber(getString(R.string.hint) + " (" + no_hint + ")"));
@@ -427,6 +428,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        selectedLanguage = getSharedPreferences("StartActivity", MODE_PRIVATE).getString("language", StartActivity.language[1]);
+        if (selectedLanguage.equals(StartActivity.language[1])) {
+//            Utils.forceRtlIfSupported(this);
+            Utils.changeLocale(this, StartActivity.languageCodes[1]);
+        } else {
+//            Utils.forceLtrIfSupported(this);
+            Utils.changeLocale(this, StartActivity.languageCodes[0]);
+        }
+        Utils.forceLtrIfSupported(this);
         setContentView(R.layout.activity_game);
 
         init();
@@ -434,16 +444,23 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
-        keyboard = findViewById(R.id.fa_keyboard);
+        if (selectedLanguage.equals(StartActivity.language[1])) {
+            keyboard = findViewById(R.id.fa_keyboard);
+            findViewById(R.id.fa_keyboard_container).setVisibility(View.VISIBLE);
+            findViewById(R.id.en_keyboard_container).setVisibility(View.GONE);
+        } else {
+            keyboard = findViewById(R.id.en_keyboard);
+            findViewById(R.id.fa_keyboard_container).setVisibility(View.GONE);
+            findViewById(R.id.en_keyboard_container).setVisibility(View.VISIBLE);
+        }
 
         ((ImageView) findViewById(R.id.ivHolder)).setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
         categoriesPersianNames = getResources().getStringArray(R.array.categories);
         win = MediaPlayer.create(this, R.raw.sound_win);
         lose = MediaPlayer.create(this, R.raw.sound_lose);
         key = MediaPlayer.create(this, R.raw.sound_correct);
-        persianNumber = new PersianNumber();
+        persianNumber = new PersianNumber(this);
         prefs = getSharedPreferences("StartActivity", 0);
-        selectedLanguage = prefs.getString("language", StartActivity.language[1]);
         no_score = prefs.getInt("no_score", 0);
         no_correct = prefs.getInt("no_correct", 0);
         no_played = prefs.getInt("no_played", 0);

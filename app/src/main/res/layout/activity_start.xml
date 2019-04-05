@@ -77,7 +77,7 @@
         android:layout_below="@id/category_layout"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
-        android:visibility="gone"
+        android:visibility="visible"
         android:orientation="vertical">
 
         <com.soha.hangman.CustomViews.CustomTextView
@@ -98,8 +98,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:background="@drawable/keyboard_on"
-            android:textSize="25.0sp" />
+            android:background="@drawable/button_round"
+            android:text="Button"
+            android:textColor="@android:color/black"
+            android:textSize="22.0sp" />
 
     </LinearLayout>
     <com.soha.hangman.CustomViews.CustomButton

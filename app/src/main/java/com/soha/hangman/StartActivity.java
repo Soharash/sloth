@@ -145,7 +145,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             case R.id.bStart:
                 //  pushInfo();
                 startActivity(new Intent(getApplicationContext(), GameActivity.class));
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 return;
             case R.id.ibSound:
                 if (prefs.getBoolean("sound", true)) {

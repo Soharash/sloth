@@ -15,7 +15,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class PrepareWord {
     private static Context context;
 
-    public static String getWord(Context mContext, String tableName) {
+    public static Word getWord(Context mContext, String tableName) {
         context = mContext;
         String temp = tableName.toLowerCase().replace(" ", "_");
         SharedPreferences localSharedPreferences = context.getSharedPreferences("PrepareWord", 0);
@@ -30,11 +30,11 @@ public class PrepareWord {
                 i += 1;
                 localEditor.putInt(temp, i);
                 localEditor.apply();
-                return getWordByLanguage(words.get(i));
+                return words.get(i);
             }
             localEditor.putInt(temp, 0);
             localEditor.apply();
-            return getWordByLanguage(words.get(0));
+            return words.get(0);
         } else
             return null;
     }
@@ -60,6 +60,30 @@ public class PrepareWord {
             else {
                 editor.putString("random_language" , StartActivity.language[1]).apply();
                 return word.meaning;
+            }
+        }
+    }
+    public static String getTranslation(Word word)
+    {
+        SharedPreferences prefs = context.getSharedPreferences("StartActivity" , MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        String language = prefs.getString("language", StartActivity.language[1]);
+        editor.putString("random_language" , language).apply();
+        if(language.equals(StartActivity.language[0]))
+            return word.meaning;
+        else if(language.equals(StartActivity.language[1]))
+            return word.word;
+        else
+        {
+            Random random = new Random();
+            int i = random.nextInt(2);
+            if(i == 1) {
+                editor.putString("random_language" , StartActivity.language[0]).apply();
+                return word.meaning;
+            }
+            else {
+                editor.putString("random_language" , StartActivity.language[1]).apply();
+                return word.word;
             }
         }
     }

@@ -1,18 +1,21 @@
 package com.soha.hangman;
 
 import android.app.AlertDialog;
-import android.app.AppComponentFactory;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,6 +27,7 @@ import com.soha.hangman.Data.DataContract;
 import com.soha.hangman.Helper.PersianNumber;
 import com.soha.hangman.Helper.Utils;
 import com.soha.hangman.Models.PrepareWord;
+import com.soha.hangman.Models.Word;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +38,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button bHint;
+    Button bHint, bTranslate;
 
     String[] categories = DataContract.categories;
     String[] categoriesPersianNames;
@@ -45,6 +49,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     Handler h;
     String hiddenWord = "";
+    String translation = "";
     String hint;
     List<String> hintList;
     ImageView ivHangman;
@@ -54,6 +59,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //    private InterstitialAd mInterstitialAd;
     int no_correct;
     int no_hint;
+    int no_translation;
     int no_played;
     int no_score;
     SharedPreferences prefs;
@@ -71,10 +77,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     TextView tvWord;
     MediaPlayer win;
     String word = "";
+    Word item;
     String TAG = "GameActivity";
     String selectedLanguage;
     PersianNumber persianNumber;
     LinearLayout keyboard;
+
     private void checkLetter(String letter) {
         Log.i(TAG, "checkLetter: word " + word);
         int i = -1;
@@ -200,17 +208,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             editor.putInt("no_correct", no_correct + 1);
             editor.putInt("no_score", no_score + score);
             editor.putInt("no_hint", no_hint + 1);
+            editor.putInt("no_translation", no_translation);
             editor.apply();
             h.removeCallbacks(r);
             localIntent = new Intent(getApplicationContext(), FinishActivity.class);
-            localIntent.putExtra("word", word);
+            localIntent.putExtra("word", item);
             localIntent.putExtra("score", score);
             localIntent.putExtra("solved", no_correct + 1);
             localIntent.putExtra("correct", true);
             Log.i(TAG, "finishGame: " + score + " " + (score + no_score));
             startActivity(localIntent);
             finish();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             return;
         } else {
             Log.i(TAG, "finishGame: false ");
@@ -222,29 +231,28 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             editor.putInt("no_played", no_played + 1);
             editor.putInt("no_score", no_score + score);
             editor.putInt("no_hint", no_hint);
+            editor.putInt("no_translation", no_translation);
             editor.apply();
             h.removeCallbacks(r);
             Intent localIntent = new Intent(getApplicationContext(), FinishActivity.class);
-            localIntent.putExtra("word", word);
+            localIntent.putExtra("word", item);
             localIntent.putExtra("correct", false);
             localIntent.putExtra("score", score);
             Log.i(TAG, "finishGame: " + score + " " + (score + no_score));
             startActivity(localIntent);
             finish();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
     }
 
     private void hideLetter(String paramString) {
         Log.i(TAG, "hideLetter: keyboard ");
-       boolean found = false;
-        for(int j = 0 ;j < keyboard.getChildCount();j++)
-        {
+        boolean found = false;
+        for (int j = 0; j < keyboard.getChildCount(); j++) {
 
-            if(keyboard.getChildAt(j) instanceof LinearLayout)
-            {
+            if (keyboard.getChildAt(j) instanceof LinearLayout) {
                 LinearLayout row = (LinearLayout) keyboard.getChildAt(j);
-                for( int i = 0 ;i < row.getChildCount() ; i++ ) {
+                for (int i = 0; i < row.getChildCount(); i++) {
                     if (row.getChildAt(i) instanceof Button && ((Button) row.getChildAt(i)).getText().toString().equals(paramString)) {
                         Log.i(TAG, "hideLetter: " + ((Button) row.getChildAt(i)).getText());
                         row.getChildAt(i).setEnabled(false);
@@ -254,7 +262,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
                     }
                 }
-                if(found)
+                if (found)
                     break;
             }
 
@@ -268,7 +276,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             if (no_hint > 0) {
                 no_hint -= 1;
                 int i = hintList.size();
-                i = new Random().nextInt(i - 1 - 1 + 1) + 1;
+                i = new Random().nextInt(i - 1 ) + 1;
                 hideLetter((String) hintList.get(i));
                 checkLetter((String) hintList.get(i));
                 bHint.setText(persianNumber.toPersianNumber(getString(R.string.hint) + " (" + no_hint + ")"));
@@ -276,11 +284,25 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     hintPopup();
                 }
             } else {
-                Toast.makeText(this, "There is no more hints!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.no_more_hint), Toast.LENGTH_SHORT).show();
                 hintPopup();
-                return;
+
             }
         } catch (Exception localException) {
+        }
+    }
+
+    private void translationLogic() {
+        if (no_translation > 0) {
+            no_translation--;
+            showTranslate();
+            bTranslate.setText(persianNumber.toPersianNumber(getString(R.string.translate) + " (" + no_translation + ")"));
+            if (no_translation == 0)
+                translationPopup();
+        } else {
+            Toast.makeText(this, getString(R.string.no_more_translation), Toast.LENGTH_SHORT).show();
+            translationPopup();
+
         }
     }
 
@@ -289,14 +311,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void hintPopup() {
         if (!rate) {
             localBuilder = new AlertDialog.Builder(this);
-            localBuilder.setMessage("Rate us with 5 stars and you will get 50 free hints!").setCancelable(false).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            localBuilder.setMessage(getString(R.string.rate_message)).setCancelable(false).setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
                     share = 1;
                     paramAnonymousDialogInterface.dismiss();
                     //   paramAnonymousDialogInterface = new Intent("android.intent.action.VIEW", Uri.parse("market://details?id=com.klikapp.hangman2"));
                     //  GameActivity.startActivity(paramAnonymousDialogInterface);
                 }
-            }).setNegativeButton("No, thanks", new DialogInterface.OnClickListener() {
+            }).setNegativeButton(getString(R.string.no_thanks), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
                     paramAnonymousDialogInterface.cancel();
                 }
@@ -305,7 +327,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         AlertDialog.Builder localBuilder = new AlertDialog.Builder(this);
-        localBuilder.setMessage("Share with friends and get 15 free hints!").setCancelable(false).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        localBuilder.setMessage(getString(R.string.share_message)).setCancelable(false).setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
                 share = 1;
                 paramAnonymousDialogInterface.dismiss();
@@ -315,7 +337,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //                paramAnonymousDialogInterface.putExtra("android.intent.extra.TEXT", "Check out my new favorite Hangman GameActivity! Try it for free http://bit.ly/GetHangmanFree");
 //                GameActivity.startActivity(Intent.createChooser(paramAnonymousDialogInterface, "Share using..."));
             }
-        }).setNegativeButton("No, thanks", new DialogInterface.OnClickListener() {
+        }).setNegativeButton(getString(R.string.no_thanks), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
                 paramAnonymousDialogInterface.cancel();
             }
@@ -323,6 +345,23 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         localBuilder.create().show();
     }
 
+    private void translationPopup() {
+
+        localBuilder = new AlertDialog.Builder(this);
+        localBuilder.setMessage(getString(R.string.watch_video_message)).setCancelable(false).setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
+                paramAnonymousDialogInterface.dismiss();
+                //   paramAnonymousDialogInterface = new Intent("android.intent.action.VIEW", Uri.parse("market://details?id=com.klikapp.hangman2"));
+                //  GameActivity.startActivity(paramAnonymousDialogInterface);
+            }
+        }).setNegativeButton(getString(R.string.no_thanks), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
+                paramAnonymousDialogInterface.cancel();
+            }
+        });
+        localBuilder.create().show();
+
+    }
 
 
     private void prepareHint() {
@@ -342,7 +381,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 editor.apply();
                 paramAnonymousDialogInterface.dismiss();
                 finish();
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         }).setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
@@ -356,13 +395,33 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         if (v.getId() == R.id.bHint)
             hintLogic();
-        else {
+        else if (v.getId() == R.id.bTranslate) {
+            translationLogic();
+        } else {
             Button button = (Button) v;
             checkLetter(button.getText().toString());
             button.setEnabled(false);
             button.setBackgroundResource(R.drawable.keyboard_off);
         }
 
+    }
+
+    private void showTranslate() {
+        final Dialog dialog = new Dialog(this);
+        View view = getLayoutInflater().inflate(R.layout.translation_dialog, null);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            dialog.getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        }
+
+
+        TextView textView = view.findViewById(R.id.title);
+
+        textView.setText(translation);
+        dialog.setContentView(view);
+        dialog.show();
     }
 
     @Override
@@ -389,13 +448,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         no_correct = prefs.getInt("no_correct", 0);
         no_played = prefs.getInt("no_played", 0);
         no_hint = prefs.getInt("no_hint", 20);
+        no_translation = prefs.getInt("no_translation", 10);
         sound = prefs.getBoolean("sound", true);
         rate = prefs.getBoolean("rate", false);
         showAds = ((int) prefs.getLong("display_number_free", 4L));
         ivHangman = ((ImageView) findViewById(R.id.ivHangman));
         bHint = ((Button) findViewById(R.id.bHint));
+        bTranslate = findViewById(R.id.bTranslate);
         bHint.setOnClickListener(this);
+        bTranslate.setOnClickListener(this);
         bHint.setText(persianNumber.toPersianNumber(getString(R.string.hint) + " (" + no_hint + ")"));
+        bTranslate.setText(persianNumber.toPersianNumber(getString(R.string.translate) + " (" + no_translation + ")"));
         tvWord = ((TextView) findViewById(R.id.tvWord));
 
         tvCategory = ((TextView) findViewById(R.id.tvCategory));
@@ -404,9 +467,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         category = prefs.getString("category", categories[0]);
 
-        word = PrepareWord.getWord(getApplicationContext(), category).toUpperCase().trim();
+        item = PrepareWord.getWord(getApplicationContext(), category);
+        word = PrepareWord.getWordByLanguage(item).toUpperCase().trim();
+
 
         hiddenWord = PrepareWord.prepare(word);
+        translation = PrepareWord.getTranslation(item);
         tvCategory.setText(Utils.getStringResourceID(getApplicationContext(), category.toLowerCase()));
         tvWord.setText(hiddenWord);
         h = new Handler();

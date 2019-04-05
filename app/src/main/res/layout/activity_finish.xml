@@ -89,7 +89,7 @@
             android:tag="2"
             android:text="WRONG!"
             android:textColor="#ffffffff"
-            android:textSize="50.0sp" />
+            android:textSize="40.0sp" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -106,7 +106,7 @@
                 android:tag="2"
                 android:text="WORD: HANGMAN"
                 android:textColor="#ffffffff"
-                android:textSize="30.0sp" />
+                android:textSize="23.0sp" />
 
             <Button
                 android:id="@+id/bFindMore"
@@ -122,6 +122,19 @@
         </LinearLayout>
 
         <com.soha.hangman.CustomViews.CustomTextView
+            android:id="@+id/tvTranslation"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:gravity="center_horizontal"
+            android:padding="3.0dip"
+            android:tag="2"
+            android:text="Translation: 0"
+            android:textColor="#ffffffff"
+            android:textIsSelectable="false"
+            android:textSize="22.0sp" />
+
+        <com.soha.hangman.CustomViews.CustomTextView
             android:id="@+id/tvSolved"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -132,7 +145,7 @@
             android:text="SOLVED PUZZLES: 0"
             android:textColor="#ffffffff"
             android:textIsSelectable="false"
-            android:textSize="30.0sp" />
+            android:textSize="22.0sp" />
 
         <com.soha.hangman.CustomViews.CustomTextView
             android:id="@+id/tvScore"
@@ -144,7 +157,7 @@
             android:tag="2"
             android:text="SCORE: 0"
             android:textColor="#ffffffff"
-            android:textSize="30.0sp" />
+            android:textSize="22.0sp" />
 
         <com.soha.hangman.CustomViews.CustomTextView
             android:id="@+id/tvHint"

@@ -15,8 +15,16 @@
     <string name="next_puzzle">معمای بعدی</string>
     <string name="solved_puzzles">معماهای حل شده:</string>
 
+    <string name="no_more_translation">ترجمه دیگری وجود ندارد!</string>
+    <string name="no_more_hint">راهنمایی دیگری وجود ندارد!</string>
     <string name="choose_language">انتخاب زبان:</string>
     <string name="category">دسته</string>
+
+    <string name="no_thanks">نه، مرسی!</string>
+    <string name="ok">باشه</string>
+    <string name="rate_message">با امتیازدهی به برنامه 10 راهنمایی جدید کسب کنید!</string>
+    <string name="share_message">برنامه را با دوستان خود به اشتراک گذاشته و 5 راهنمایی جدید کسب کنید!</string>
+    <string name="watch_video_message">با تماشای یک ویدئو تبلیغاتی 5 ترجمه کسب کنید!\n(لطفا فیلترشکن خود را فعال کنید)</string>
 
     <string name="dummy_content"></string>
 

@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.soha.hangman.Helper.PersianNumber;
+import com.soha.hangman.Models.PrepareWord;
+import com.soha.hangman.Models.Word;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,14 +50,15 @@ public class FinishActivity
     TextView tvScore;
     TextView tvSolved;
     TextView tvStatus;
-    String word;
+    TextView tvTranslation;
+    Word word;
     PersianNumber persianNumber;
     ImageView statusImage;
 
     private void nextPuzzle() {
         startActivity(new Intent(getApplicationContext(), GameActivity.class));
         finish();
-//        overridePendingTransition( R.anim.slide_out_right , R.anim.slide_in_left  );
+        overridePendingTransition( R.anim.slide_in_right , R.anim.slide_out_left  );
     }
 
     public void onBackPressed() {
@@ -100,7 +103,8 @@ public class FinishActivity
                 tvHint.setVisibility(View.GONE);
             }
 
-            tvAnswer.setText(persianNumber.toPersianNumber(getString(R.string.word) + " " + word));
+            tvAnswer.setText(persianNumber.toPersianNumber(getString(R.string.word) + " " + PrepareWord.getWordByLanguage(word)));
+            tvTranslation.setText(persianNumber.toPersianNumber(getString(R.string.translate) + ": " + PrepareWord.getTranslation(word).toLowerCase()));
             tvSolved.setText(persianNumber.toPersianNumber(getString(R.string.solved_puzzles) + " " + no_correct));
             tvScore.setText(persianNumber.toPersianNumber(getString(R.string.score)+ " " + score));
             bNextPuzzle.setOnClickListener(new View.OnClickListener() {
@@ -216,7 +220,7 @@ public class FinishActivity
     private void init(Intent intent)
     {
         persianNumber = new PersianNumber();
-        word = intent.getExtras().getString("word");
+        word = intent.getParcelableExtra("word");
         correct = intent.getExtras().getBoolean("correct");
         score = intent.getExtras().getInt("score");
         prefs = getSharedPreferences("StartActivity", 0);
@@ -230,6 +234,7 @@ public class FinishActivity
         tvAnswer =  findViewById(R.id.tvAnswer);
         tvSolved =  findViewById(R.id.tvSolved);
         tvScore =  findViewById(R.id.tvScore);
+        tvTranslation = findViewById(R.id.tvTranslation);
         tvHint =  findViewById(R.id.tvHint);
         statusImage = findViewById(R.id.status_image);
         statusImage.setColorFilter(Color.WHITE , PorterDuff.Mode.SRC_IN);

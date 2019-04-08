@@ -85,10 +85,8 @@ public class FinishActivity
         super.onCreate(savedInstanceState);
         selectedLanguage = getSharedPreferences("StartActivity", MODE_PRIVATE).getString("language", StartActivity.language[1]);
         if (selectedLanguage.equals(StartActivity.language[1])) {
-//            Utils.forceRtlIfSupported(this);
             Utils.changeLocale(this, StartActivity.languageCodes[1]);
         } else {
-//            Utils.forceLtrIfSupported(this);
             Utils.changeLocale(this, StartActivity.languageCodes[0]);
         }
         Utils.forceLtrIfSupported(this);
@@ -122,16 +120,7 @@ public class FinishActivity
                     nextPuzzle();
                 }
             });
-//                bFindMore.setOnClickListener(new View.OnClickListener()
-//                {
-//                    public void onClick(View paramAnonymousView)
-//                    {
-//                        paramAnonymousView = new Intent(FinishActivity.getApplicationContext(), FindMore.class);
-//                        paramAnonymousView.putExtra("word", FinishActivity.word);
-//                        FinishActivity.startActivity(paramAnonymousView);
-//                        FinishActivity.overridePendingTransition(2130771979, 2130771980);
-//                    }
-//                });
+
 //                bRate1.setOnClickListener(new View.OnClickListener()
 //                {
 //                    public void onClick(View paramAnonymousView)

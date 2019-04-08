@@ -151,35 +151,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 return;
             case R.id.bCategories:
                 showCategoriesDialog();
-//                builder = new AlertDialog.Builder(this);
-//                builder.setTitle(persianNumber.toPersianNumber(categories.length + getString(R.string.category)));
-//                builder.setItems(categoriesPersianNames, new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialogInterface, int index) {
-//                        selectedCategory = categoriesPersianNames[index];
-//                        bCategories.setText(selectedCategory);
-//                        editor = getSharedPreferences("StartActivity", 0).edit();
-//                        editor.putString("category", categories[index]);
-//                        editor.apply();
-//                        editor.putString("item_category", categories[index]);
-//                    }
-//                });
-//                builder.show();
                 return;
-//            case R.id.bDifficulty:
-//                builder = new AlertDialog.Builder(this);
-//                builder.setTitle("Difficulty");
-//                builder.setItems(difficulty, new DialogInterface.OnClickListener()
-//                {
-//                    public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt)
-//                    {
-//                        StartActivity.bDifficulty.setText(StartActivity.difficulty[paramAnonymousInt]);
-//                        StartActivity.editor = StartActivity.getSharedPreferences("StartActivity", 0).edit();
-//                        StartActivity.editor.putString("difficulty", StartActivity.difficulty[paramAnonymousInt]);
-//                        StartActivity.editor.apply();
-//                    }
-//                });
-//                builder.show();
-//                return;
+
             case R.id.bStart:
                 //  pushInfo();
                 startActivity(new Intent(getApplicationContext(), GameActivity.class));
@@ -200,20 +173,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.bLanguage:
                 showLanguageDialog();
-//                builder = new AlertDialog.Builder(this);
-//                builder.setTitle("Language:");
-//                builder.setItems(language, new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialogInterface, int index) {
-//                        selectedLanguage = language[index];
-//                        bLanguage
-// .setText(selectedLanguage);
-//                        editor = getSharedPreferences("StartActivity", MODE_PRIVATE).edit();
-//                        editor.putString("language", language[index]);
-//                        editor.apply();
-//                        //  editor.putString("item_category", language.get(index));
-//                    }
-//                });
-//                builder.show();
                 break;
         }
 
@@ -224,14 +183,13 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         String beforeLanguage = getSharedPreferences("StartActivity", MODE_PRIVATE).getString("language", language[1]);
         if (beforeLanguage.equals(language[1])) {
-//            Utils.forceRtlIfSupported(this);
+//
             Utils.changeLocale(this, languageCodes[1]);
         } else {
-//            Utils.forceLtrIfSupported(this);
+//
             Utils.changeLocale(this, languageCodes[0]);
         }
         Utils.forceLtrIfSupported(this);
-        // OneSignal.startInit(this).inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification).unsubscribeWhenNotificationsAreDisabled(true).init();
         setContentView(R.layout.activity_start);
         init();
 
@@ -239,36 +197,26 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         if (prefs.getBoolean("sound", true)) {
             ibNoSound.setVisibility(View.INVISIBLE);
         }
-        for (; ; ) {
-            bCategories.setOnClickListener(this);
-            bLanguage.setOnClickListener(this);
-//            bDifficulty.setOnClickListener(this);
-            bStart.setOnClickListener(this);
-            bMultiplayer.setOnClickListener(this);
-            bSettings.setOnClickListener(this);
-            selectedCategory = prefs.getString("category", categories[0]);
-            bCategories.setText(Utils.getStringResourceID(this, selectedCategory.toLowerCase()));
-            selectedLanguage = prefs.getString("language", language[1]);
-            bLanguage.setText(selectedLanguage);
-//            String difficulty = prefs.getString("difficulty", difficulty[0]);
-//            bDifficulty.setText(difficulty);
 
-            return;
-            //ibNoSound.setVisibility(View.VISIBLE);
-        }
+        bCategories.setOnClickListener(this);
+        bLanguage.setOnClickListener(this);
+//            bDifficulty.setOnClickListener(this);
+        bStart.setOnClickListener(this);
+        bMultiplayer.setOnClickListener(this);
+        bSettings.setOnClickListener(this);
+        selectedCategory = prefs.getString("category", categories[0]);
+        bCategories.setText(Utils.getStringResourceID(this, selectedCategory.toLowerCase()));
+        selectedLanguage = prefs.getString("language", language[1]);
+        bLanguage.setText(selectedLanguage);
     }
 
     private void init() {
         persianNumber = new PersianNumber(this);
         categoriesPersianNames = getResources().getStringArray(R.array.categories);
         prefs = getSharedPreferences("StartActivity", 0);
-//        FirstStart.shuffleWords(getApplicationContext());
-//        tvDifficulty = ((TextView)findViewById(R.id.tvDifficulty));
         bCategories = findViewById(R.id.bCategories);
         bLanguage = findViewById(R.id.bLanguage);
         bCategories.setText(categoriesPersianNames[0]);
-//        bDifficulty = ((Button)findViewById(R.id.bDifficulty));
-//        bDifficulty.setText(difficulty[1]);
         bStart = findViewById(R.id.bStart);
         bMultiplayer = findViewById(R.id.bMultiplayer);
         bSettings = findViewById(R.id.bSettings);

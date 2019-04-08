@@ -30,12 +30,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private Context mContext;
     @SuppressLint("SdCardPath")
-    private static String DB_DIR = "/data/data/" + BuildConfig.APPLICATION_ID + "/databases";
-    private static String DB_PATH = DB_DIR + File.separator + DATABASE_NAME;
+    private static String DB_PATH;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
+
+            DB_PATH = context.getApplicationInfo().dataDir + "/databases/" + DATABASE_NAME;
+
         Log.v(TAG, "is database empty? " + isDatabaseEmpty());
         if(isDatabaseEmpty())
             createDatabase();
@@ -82,7 +84,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             input.close();
         } catch(IOException e){
             // TODO: add firebase
-            Log.e(TAG, "exception in copy database");
+            Log.e(TAG, "exception in copy database" , e);
         }
     }
 

@@ -163,35 +163,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 //  ivHangman.setImageResource(R.drawable.h02_holder);
                 finishGame(false);
                 break;
-//                if (
-////                (mInterstitialAd.isLoaded()) &&
-//                        (no_played % showAds == 0)) {
-////            mInterstitialAd.show();
-//                    return;
-//                }
-//            case 7:
-//                ivHangman.setImageResource(R.drawable.h02_8);
-//                endState = false;
-//              //  ivHangman.setImageResource(R.drawable.h02_holder);
-//                if (
-////                (mInterstitialAd.isLoaded()) &&
-//                        (no_played % showAds == 0)) {
-////            mInterstitialAd.show();
-//                    return;
-//                }
-//                finishGame(false);
-//                return;
+
         }
         ivHangman.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
-//        endState = false;
-//        ivHangman.setImageResource(R.drawable.h02_holder);
-//        if (
-////                (mInterstitialAd.isLoaded()) &&
-//                (no_played % showAds == 0)) {
-////            mInterstitialAd.show();
-//            return;
-//        }
-//        finishGame(false);
     }
 
     Intent localIntent;
@@ -529,7 +503,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
         if (share == 2) {
             if (!rate) {
-                Toast.makeText(this, "Thank you! You recieved +50 new hints!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Thank you! You received +50 new hints!", Toast.LENGTH_SHORT).show();
                 share = 0;
                 no_hint += 50;
                 editor = getSharedPreferences("StartActivity", 0).edit();

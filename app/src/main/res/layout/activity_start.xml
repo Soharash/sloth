@@ -25,7 +25,6 @@
         android:layout_alignParentTop="true"
         android:background="#00ffffff"
         android:padding="9.0dip"
-        android:visibility="invisible"
         app:srcCompat="@mipmap/ic_close_white_36dp" />
 
     <ImageButton

@@ -144,6 +144,11 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bStart.setClickable(true);
+    }
 
     public void onClick(View view) {
         switch (view.getId()) {
@@ -155,6 +160,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
             case R.id.bStart:
                 //  pushInfo();
+                bStart.setClickable(false);
                 startActivity(new Intent(getApplicationContext(), GameActivity.class));
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 return;

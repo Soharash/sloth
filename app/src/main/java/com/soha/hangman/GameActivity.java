@@ -418,11 +418,19 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
+        ivHangman = ((ImageView) findViewById(R.id.ivHangman));
+        bHint = ((Button) findViewById(R.id.bHint));
+        bTranslate = findViewById(R.id.bTranslate);
+        bHint.setOnClickListener(this);
+        bTranslate.setOnClickListener(this);
+        tvWord = ((TextView) findViewById(R.id.tvWord));
         if (selectedLanguage.equals(StartActivity.language[1])) {
+            tvWord.setTextDirection(View.TEXT_DIRECTION_RTL);
             keyboard = findViewById(R.id.fa_keyboard);
             findViewById(R.id.fa_keyboard_container).setVisibility(View.VISIBLE);
             findViewById(R.id.en_keyboard_container).setVisibility(View.GONE);
         } else {
+            tvWord.setTextDirection(View.TEXT_DIRECTION_LTR);
             keyboard = findViewById(R.id.en_keyboard);
             findViewById(R.id.fa_keyboard_container).setVisibility(View.GONE);
             findViewById(R.id.en_keyboard_container).setVisibility(View.VISIBLE);
@@ -443,14 +451,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         sound = prefs.getBoolean("sound", true);
         rate = prefs.getBoolean("rate", false);
         showAds = ((int) prefs.getLong("display_number_free", 4L));
-        ivHangman = ((ImageView) findViewById(R.id.ivHangman));
-        bHint = ((Button) findViewById(R.id.bHint));
-        bTranslate = findViewById(R.id.bTranslate);
-        bHint.setOnClickListener(this);
-        bTranslate.setOnClickListener(this);
+
         bHint.setText(persianNumber.toPersianNumber(getString(R.string.hint) + " (" + no_hint + ")"));
         bTranslate.setText(persianNumber.toPersianNumber(getString(R.string.translate) + " (" + no_translation + ")"));
-        tvWord = ((TextView) findViewById(R.id.tvWord));
+
 
         tvCategory = ((TextView) findViewById(R.id.tvCategory));
         tvScore = ((TextView) findViewById(R.id.tvScore));
@@ -466,6 +470,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         translation = PrepareWord.getTranslation(item);
         tvCategory.setText(Utils.getStringResourceID(getApplicationContext(), category.toLowerCase()));
         tvWord.setText(hiddenWord);
+
         h = new Handler();
         r = new Runnable() {
             public void run() {

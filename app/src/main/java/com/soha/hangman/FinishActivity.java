@@ -117,6 +117,7 @@ public class FinishActivity
             tvScore.setText(persianNumber.toPersianNumber(getString(R.string.score)+ " " + score));
             bNextPuzzle.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View paramAnonymousView) {
+                    bNextPuzzle.setClickable(false);
                     nextPuzzle();
                 }
             });
@@ -215,6 +216,11 @@ public class FinishActivity
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bNextPuzzle.setClickable(true);
+    }
 
     private void init(Intent intent)
     {

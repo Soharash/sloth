@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">هنگ من (حدس کلمات)</string>
+    <string name="app_name">دژخیم (حدس کلمات)</string>
 
-    <string name="hangman">هنگ من</string>
+    <string name="hangman">دژخیم</string>
 
     <string name="hint">راهنمایی</string>
     <string name="translate">ترجمه</string>
@@ -21,7 +21,7 @@
     <string name="category">دسته</string>
 
     <string name="no_thanks">نه، مرسی!</string>
-    <string name="ok">باشه</string>
+    <string name="ok">باشه!</string>
     <string name="rate_message">با امتیازدهی به برنامه 10 راهنمایی جدید کسب کنید!</string>
     <string name="share_message">برنامه را با دوستان خود به اشتراک گذاشته و 5 راهنمایی جدید کسب کنید!</string>
     <string name="watch_video_message">با تماشای یک ویدئو تبلیغاتی 5 ترجمه کسب کنید!\n(لطفا فیلترشکن خود را فعال کنید)</string>
@@ -40,7 +40,7 @@
     <string name="flowers">گل ها</string>
 
 
-    <string name="enjoy_hangman">از هنگ من خوشت میاد؟</string>
+    <string name="enjoy_hangman">از دژخیم خوشت میاد؟</string>
     <string name="yes">آره!</string>
     <string name="not_really">نه خیلی!</string>
 

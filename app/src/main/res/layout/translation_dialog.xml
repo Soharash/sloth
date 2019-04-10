@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:padding="40dp">
 
-        <com.soha.hangman.CustomViews.CustomTextView
+        <com.sohara.hangman.CustomViews.CustomTextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

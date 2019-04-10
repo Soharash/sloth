@@ -1,0 +1,61 @@
+<resources>
+
+
+
+
+    <string name="hangman">دژخیم</string>
+
+    <string name="hint">راهنمایی</string>
+    <string name="translate">ترجمه</string>
+    <string name="correct">درسته!</string>
+    <string name="wrong">غلطه!</string>
+    <string name="new_hint">1+ راهنمایی جدید!</string>
+    <string name="choose_category">انتخاب دسته:</string>
+    <string name="start_game">شروع بازی</string>
+    <string name="word">کلمه:</string>
+    <string name="score">امتیاز:</string>
+    <string name="next_puzzle">معمای بعدی</string>
+    <string name="solved_puzzles">معماهای حل شده:</string>
+
+    <string name="no_more_translation">ترجمه دیگری وجود ندارد!</string>
+    <string name="no_more_hint">راهنمایی دیگری وجود ندارد!</string>
+    <string name="choose_language">انتخاب زبان:</string>
+    <string name="category">دسته</string>
+
+    <string name="no_thanks">نه، مرسی!</string>
+    <string name="ok">باشه!</string>
+    <string name="rate_message">با امتیازدهی به برنامه 5 راهنمایی جدید کسب کنید!</string>
+    <string name="share_message">برنامه را با دوستان خود به اشتراک گذاشته و 5 راهنمایی جدید کسب کنید!</string>
+    <string name="watch_video_message">با تماشای یک ویدئو تبلیغاتی 5 ترجمه کسب کنید!\n(لطفا فیلترشکن خود را فعال کنید)</string>
+
+    <string name="dummy_content"></string>
+
+    <string name="animals">حیوانات</string>
+    <string name="countries">کشورها</string>
+    <string name="food">خوراکی ها</string>
+    <string name="sport">ورزش ها</string>
+    <string name="clothes_and_accessories">پوشاک و اکسسوری</string>
+    <string name="kitchen">وسایل آشپزخانه</string>
+    <string name="jobs">شغل ها</string>
+    <string name="fruit">میوه ها</string>
+    <string name="colors">رنگ ها</string>
+    <string name="body">اعضای بدن</string>
+    <string name="flowers">گل ها</string>
+
+
+    <string name="enjoy_hangman">از دژخیم خوشت میاد؟</string>
+    <string name="yes">آره!</string>
+    <string name="not_really">نه خیلی!</string>
+
+    <string name="exit_message">مطمئنی میخوای از این صفحه خارج بشی؟</string>
+    <string name="no">نه!</string>
+    <string name="language">زبان</string>
+    <string name="rate_if_enjoy">نظرت درباره امتیاز دادن به اپلیکیشن در گوگل پلی چیه؟</string>
+
+    <string name="reward_ad_not_loaded">متأسفانه ویدئو لود نشده است! لطفا بعدا تلاش نمایید!</string>
+
+    <string name="translation_award_5">سپاس! +5 ترجمه جدید بدست آوردی!</string>
+    <string name="share_app_subject">بازی دژخیم رو امتحان کن!</string>
+    <string name="share_app_text">بازی جدید موردعلاقه من را از این لینک دریافت کن:</string>
+    <string name="hint_award_5">سپاس! +5 راهنمایی جدید بدست آوردی!</string>
+</resources>

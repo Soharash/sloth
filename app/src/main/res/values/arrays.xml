@@ -4,13 +4,14 @@
         <item>@string/animals</item>
         <item>@string/countries</item>
         <item>@string/food</item>
-        <item>@string/sport</item>
         <item>@string/kitchen</item>
+        <item>@string/sport</item>
         <item>@string/jobs</item>
-        <item>@string/fruit</item>
-        <item>@string/colors</item>
+        <item>@string/clothes_and_accessories</item>
         <item>@string/body</item>
         <item>@string/flowers</item>
+        <item>@string/fruit</item>
+        <item>@string/colors</item>
     </array>
 
 

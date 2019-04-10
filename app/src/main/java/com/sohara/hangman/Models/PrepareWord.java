@@ -1,11 +1,10 @@
-package com.soha.hangman.Models;
+package com.sohara.hangman.Models;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.soha.hangman.Data.DatabaseHelper;
-import com.soha.hangman.Models.Word;
-import com.soha.hangman.StartActivity;
+import com.sohara.hangman.Data.DatabaseHelper;
+import com.sohara.hangman.StartActivity;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -14,27 +13,24 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class PrepareWord {
     private static Context context;
+    static int i = 0;
 
     public static Word getWord(Context mContext, String tableName) {
         context = mContext;
         String temp = tableName.toLowerCase().replace(" ", "_");
         SharedPreferences localSharedPreferences = context.getSharedPreferences("PrepareWord", 0);
+
         SharedPreferences.Editor localEditor = context.getSharedPreferences("PrepareWord", 0).edit();
 
 
-        int i = localSharedPreferences.getInt(temp, 0);
+        i = localSharedPreferences.getInt(temp, -1);
         // String[] array = readText(paramString).split(";");
-        ArrayList<Word> words = DatabaseHelper.getAll(context, tableName);
+        ArrayList<Word> words = DatabaseHelper.getAllWords(context, tableName);
         if (words.size() > 0) {
-            if (i < words.size() - 1) {
-                i += 1;
-                localEditor.putInt(temp, i);
-                localEditor.apply();
-                return words.get(i);
-            }
-            localEditor.putInt(temp, 0);
+            i += 1;
+            localEditor.putInt(temp, i);
             localEditor.apply();
-            return words.get(0);
+            return words.get(i);
         } else
             return null;
     }

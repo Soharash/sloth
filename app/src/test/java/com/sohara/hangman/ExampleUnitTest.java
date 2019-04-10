@@ -1,4 +1,4 @@
-package com.soha.hangman;
+package com.sohara.hangman;
 
 import org.junit.Test;
 

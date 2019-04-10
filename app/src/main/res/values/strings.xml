@@ -1,50 +1,64 @@
 <resources>
-    <string name="app_name">دژخیم (حدس کلمات)</string>
 
-    <string name="hangman">دژخیم</string>
+    <string name="app_name" translatable="false">دژخیم</string>
+    <string name="hangman">Hangman</string>
 
-    <string name="hint">راهنمایی</string>
-    <string name="translate">ترجمه</string>
-    <string name="correct">درسته!</string>
-    <string name="wrong">غلطه!</string>
-    <string name="new_hint">1+ راهنمایی جدید!</string>
-    <string name="choose_category">انتخاب دسته:</string>
-    <string name="start_game">شروع بازی</string>
-    <string name="word">کلمه:</string>
-    <string name="score">امتیاز:</string>
-    <string name="next_puzzle">معمای بعدی</string>
-    <string name="solved_puzzles">معماهای حل شده:</string>
+    <string name="hint">Hint</string>
+    <string name="translate">Translation</string>
+    <string name="correct">Right!</string>
+    <string name="wrong">Wrong!</string>
+    <string name="new_hint">+1 New Hint!</string>
+    <string name="choose_category">Choose Category:</string>
+    <string name="start_game">Start</string>
+    <string name="word">Word:</string>
+    <string name="score">Points:</string>
+    <string name="next_puzzle">Next Puzzle</string>
+    <string name="solved_puzzles">Solved Puzzles:</string>
 
-    <string name="no_more_translation">ترجمه دیگری وجود ندارد!</string>
-    <string name="no_more_hint">راهنمایی دیگری وجود ندارد!</string>
-    <string name="choose_language">انتخاب زبان:</string>
-    <string name="category">دسته</string>
+    <string name="no_more_translation">There are no more translations!</string>
+    <string name="no_more_hint">There are no more hints!</string>
+    <string name="choose_language">Choose Language:</string>
+    <string name="category">Category</string>
 
-    <string name="no_thanks">نه، مرسی!</string>
-    <string name="ok">باشه!</string>
-    <string name="rate_message">با امتیازدهی به برنامه 10 راهنمایی جدید کسب کنید!</string>
-    <string name="share_message">برنامه را با دوستان خود به اشتراک گذاشته و 5 راهنمایی جدید کسب کنید!</string>
-    <string name="watch_video_message">با تماشای یک ویدئو تبلیغاتی 5 ترجمه کسب کنید!\n(لطفا فیلترشکن خود را فعال کنید)</string>
+    <string name="no_thanks">No, Thanks!</string>
+    <string name="ok">OK!</string>
+    <string name="rate_message">Rate us and get 5 more hints!</string>
+    <string name="share_message">Share this application with your friends and receive 5 more hints!</string>
+    <string name="watch_video_message">Watch the ad video to earn 5 more translations!\n(Please connect to a vpn)</string>
 
     <string name="dummy_content"></string>
 
-    <string name="animals">حیوانات</string>
-    <string name="countries">کشورها</string>
-    <string name="food">خوراکی ها</string>
-    <string name="sport">ورزش ها</string>
-    <string name="kitchen">وسایل آشپزخانه</string>
-    <string name="jobs">شغل ها</string>
-    <string name="fruit">میوه ها</string>
-    <string name="colors">رنگ ها</string>
-    <string name="body">اعضای بدن</string>
-    <string name="flowers">گل ها</string>
+    <string name="animals">Animals</string>
+    <string name="countries">Countries</string>
+    <string name="food">Food</string>
+    <string name="sport">Sports</string>
+    <string name="kitchen">Kitchen Utensils</string>
+    <string name="clothes_and_accessories">Clothes AND Accessories</string>
+    <string name="jobs">Jobs</string>
+    <string name="fruit">Fruits</string>
+    <string name="colors">Colors</string>
+    <string name="body">Body Organs</string>
+    <string name="flowers">Flowers</string>
 
 
-    <string name="enjoy_hangman">از دژخیم خوشت میاد؟</string>
-    <string name="yes">آره!</string>
-    <string name="not_really">نه خیلی!</string>
+    <string name="enjoy_hangman">Do you enjoy hangman?</string>
+    <string name="yes">Yes!</string>
+    <string name="not_really">Not Really!</string>
 
-    <string name="exit_message">مطمئنی میخوای از این صفحه خارج بشی؟</string>
-    <string name="no">نه!</string>
-    <string name="language">زبان</string>
+    <string name="exit_message">Are you sure you want to exit?</string>
+    <string name="no">No!</string>
+    <string name="language">Language</string>
+<string name="share_app_subject">Try Hangman Free!</string>
+    <string name="share_app_text">Check out my new favorite game at:</string>
+
+    <string name="hint_award_5">Thank you! You received +5 new hints!</string>
+    <string name="translation_award_5">Thank you! You received +5 new translations!</string>
+    <string name="rate_if_enjoy">How about a rating on the Play Store, then?</string>
+
+    <string name="reward_ad_not_loaded">Unable to load reward video! Please try again later!</string>
+
+    <string name="admob_app_id" translatable="false">ca-app-pub-9225557010209066~3045339004</string>
+    <string name="banner_ad" translatable="false">ca-app-pub-9225557010209066/8489237370</string>
+    <string name="interstitial_ad" translatable="false">ca-app-pub-9225557010209066/7555784875</string>
+    <string name="rewarded_video_ad" translatable="false">ca-app-pub-9225557010209066/5605366814</string>
 </resources>

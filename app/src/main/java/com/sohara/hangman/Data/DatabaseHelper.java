@@ -1,4 +1,4 @@
-package com.soha.hangman.Data;
+package com.sohara.hangman.Data;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -7,8 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.soha.hangman.BuildConfig;
-import com.soha.hangman.Models.Word;
+import com.sohara.hangman.BuildConfig;
+import com.sohara.hangman.Models.Word;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public static final String TAG = DatabaseHelper.class.getSimpleName();
-    public static final String DATABASE_NAME ="hangman.db";
+    public static final String DATABASE_NAME = "hangman.db";
     private static final int DATABASE_VERSION = 1;
     private Context mContext;
     @SuppressLint("SdCardPath")
@@ -36,10 +36,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
 
-            DB_PATH = context.getApplicationInfo().dataDir + "/databases/" + DATABASE_NAME;
+        DB_PATH = context.getApplicationInfo().dataDir + "/databases/" + DATABASE_NAME;
 
         Log.v(TAG, "is database empty? " + isDatabaseEmpty());
-        if(isDatabaseEmpty())
+        if (isDatabaseEmpty())
             createDatabase();
     }
 
@@ -47,25 +47,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 //
     }
-    //Create a empty database on the system
-    private void createDatabase()
-    {
 
-        if(isDatabaseEmpty()){
+    //Create a empty database on the system
+    private void createDatabase() {
+
+        if (isDatabaseEmpty()) {
             this.getReadableDatabase(); // create database in data/data/application_id/databases
             copyDatabase();
         }
 
     }
-    private boolean isDatabaseEmpty(){
+
+    private boolean isDatabaseEmpty() {
         File databaseFile = new File(DB_PATH);
         return !databaseFile.exists();
     }
 
 
-
-    private void copyDatabase(){
-        try{
+    private void copyDatabase() {
+        try {
             InputStream input = mContext.getAssets()
                     .open(DATABASE_NAME); //Open your local mDatabase as the input stream
             OutputStream output = new FileOutputStream(
@@ -74,7 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             // transfer byte to inputfile to outputfile
             byte[] buffer = new byte[1024];
             int length;
-            while((length = input.read(buffer)) > 0){
+            while ((length = input.read(buffer)) > 0) {
                 output.write(buffer, 0, length);
             }
 
@@ -82,24 +82,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             output.flush();
             output.close();
             input.close();
-        } catch(IOException e){
+        } catch (IOException e) {
             // TODO: add firebase
-            Log.e(TAG, "exception in copy database" , e);
+            Log.e(TAG, "exception in copy database", e);
         }
     }
 
-    public static ArrayList<Word> getAll(Context context , String tableName)
-    {
+    public static ArrayList<Word> getAllWords(Context context, String tableName) {
         ArrayList<Word> words = new ArrayList<>();
         DatabaseHelper mDbHelper = new DatabaseHelper(context);
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         String query = "SELECT * FROM " + tableName;
-        Cursor cursor = db.rawQuery(query , null );
-        Log.i(TAG, "getAll: table name " + tableName + " count " + cursor.getCount());
+        Cursor cursor = db.rawQuery(query, null);
+        Log.i(TAG, "getAllWords: table name " + tableName + " count " + cursor.getCount());
         cursor.moveToFirst();
-        while (!cursor.isAfterLast())
-        {
+        while (!cursor.isAfterLast()) {
             Word word = new Word();
 
             word.id = cursor.getInt(cursor.getColumnIndex(DataContract.DataEntry._ID));
@@ -113,9 +111,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return words;
     }
+
+    public static ArrayList<String> getAllTables(Context context) {
+        ArrayList<String> tables = new ArrayList<>();
+        DatabaseHelper mDbHelper = new DatabaseHelper(context);
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        String tableName = "sqlite_sequence";
+
+        String query = "SELECT * FROM " + tableName;
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            String name = cursor.getString(cursor.getColumnIndex(DataContract.TableEntry.COLUMN_NAME));
+            tables.add(name);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return tables;
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if(oldVersion < newVersion){
+        if (oldVersion < newVersion) {
             copyDatabase();
         }
     }

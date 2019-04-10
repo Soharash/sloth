@@ -1,26 +1,27 @@
-package com.soha.hangman.CustomViews;
+package com.sohara.hangman.CustomViews;
 
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 
-import com.soha.hangman.Helper.Utils;
+import com.sohara.hangman.Helper.Utils;
 
-import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatTextView;
 
-public class CustomEditText extends AppCompatEditText {
+public class CustomTextView extends AppCompatTextView {
     int style = Typeface.NORMAL;
-    public CustomEditText(Context context, AttributeSet attrs, int defStyle) {
+
+    public CustomTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
 
-    public CustomEditText(Context context, AttributeSet attrs) {
+    public CustomTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public CustomEditText(Context context) {
+    public CustomTextView(Context context) {
         super(context);
         init();
     }
@@ -29,11 +30,11 @@ public class CustomEditText extends AppCompatEditText {
         if (getTypeface() != null)
             style = getTypeface().getStyle();
         Typeface tf;
-        if (getTag().equals(1))
+        if (getTag().equals("1"))
             tf = Typeface.createFromAsset(getContext().getAssets(), Utils.font1);
         else
             tf = Typeface.createFromAsset(getContext().getAssets(), Utils.font2);
-        setTypeface(tf , style);
+        setTypeface(tf, style);
 
     }
 }

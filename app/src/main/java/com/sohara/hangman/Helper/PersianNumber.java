@@ -1,9 +1,9 @@
-package com.soha.hangman.Helper;
+package com.sohara.hangman.Helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.soha.hangman.StartActivity;
+import com.sohara.hangman.StartActivity;
 
 public class PersianNumber {
     String language;

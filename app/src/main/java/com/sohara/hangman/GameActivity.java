@@ -1,4 +1,4 @@
-package com.soha.hangman;
+package com.sohara.hangman;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,11 +24,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.soha.hangman.Data.DataContract;
-import com.soha.hangman.Helper.PersianNumber;
-import com.soha.hangman.Helper.Utils;
-import com.soha.hangman.Models.PrepareWord;
-import com.soha.hangman.Models.Word;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.sohara.hangman.Helper.PersianNumber;
+import com.sohara.hangman.Helper.Utils;
+import com.sohara.hangman.Models.PrepareWord;
+import com.sohara.hangman.Models.Word;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,11 +43,11 @@ import java.util.Random;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class GameActivity extends AppCompatActivity implements View.OnClickListener {
+public class GameActivity extends AppCompatActivity implements View.OnClickListener, RewardedVideoAdListener {
 
     Button bHint, bTranslate;
 
-    String[] categories = DataContract.categories;
+
     String[] categoriesPersianNames;
     String category = "";
     int counter = 0;
@@ -84,7 +91,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     LinearLayout keyboard;
 
 
-    private void checkLetter(String letter) {
+    private void checkLetter(String letter, boolean isHint) {
         Log.i(TAG, "checkLetter: word " + word);
         int i = -1;
         for (; ; ) {
@@ -95,24 +102,28 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             hiddenWord = (hiddenWord.substring(0, i) + letter + hiddenWord.substring(i + 1));
         }
         if (word.contains(letter)) {
-            score += 10;
+            if (!isHint)
+                score += 2;
             hint = hint.replace(letter, "");
             prepareHint();
             if (sound) {
                 key.start();
             }
-            tvScore.setText("" + score);
+            tvScore.setText(persianNumber.toPersianNumber(String.valueOf(score)));
             tvWord.setText(hiddenWord);
             if (word.equals(hiddenWord)) {
-                if (120 - time > 0) {
-                    score += 120 - time;
+                if (60 - time > 0) {
+                    score += 10;
                 }
-                score += 30;
                 endState = true;
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                } else
+                    finishGame(endState);
 //                if (
 ////                        (!mInterstitialAd.isLoaded()) ||
 //                                (no_played % showAds != 0)) {
-                finishGame(true);
+
                 // break ;
                 return;
 //                }
@@ -161,7 +172,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 ivHangman.setImageResource(R.drawable.h02_7);
                 endState = false;
                 //  ivHangman.setImageResource(R.drawable.h02_holder);
-                finishGame(false);
+                if (mInterstitialAd.isLoaded())
+                    mInterstitialAd.show();
+                else
+                    finishGame(endState);
                 break;
 
         }
@@ -191,7 +205,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             localIntent.putExtra("score", score);
             localIntent.putExtra("solved", no_correct + 1);
             localIntent.putExtra("correct", true);
-            Log.i(TAG, "finishGame: " + score + " " + (score + no_score));
             startActivity(localIntent);
             finish();
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -213,7 +226,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             localIntent.putExtra("word", item);
             localIntent.putExtra("correct", false);
             localIntent.putExtra("score", score);
-            Log.i(TAG, "finishGame: " + score + " " + (score + no_score));
             startActivity(localIntent);
             finish();
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -253,7 +265,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 int i = hintList.size();
                 i = new Random().nextInt(i - 1) + 1;
                 hideLetter((String) hintList.get(i));
-                checkLetter((String) hintList.get(i));
+                checkLetter((String) hintList.get(i), true);
                 bHint.setText(persianNumber.toPersianNumber(getString(R.string.hint) + " (" + no_hint + ")"));
                 if (no_hint == 0) {
                     hintPopup();
@@ -267,13 +279,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    boolean translationShown = false;
+
     private void translationLogic() {
         if (no_translation > 0) {
-            no_translation--;
             showTranslate();
-            bTranslate.setText(persianNumber.toPersianNumber(getString(R.string.translate) + " (" + no_translation + ")"));
+            if (!translationShown) {
+                no_translation--;
+                bTranslate.setText(persianNumber.toPersianNumber(getString(R.string.translate) + " (" + no_translation + ")"));
+            }
             if (no_translation == 0)
                 translationPopup();
+            translationShown = true;
         } else {
             Toast.makeText(this, getString(R.string.no_more_translation), Toast.LENGTH_SHORT).show();
             translationPopup();
@@ -287,15 +304,23 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if (!rate) {
             localBuilder = new AlertDialog.Builder(this);
             localBuilder.setMessage(getString(R.string.rate_message)).setCancelable(false).setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
+                public void onClick(DialogInterface dialogInterface, int paramAnonymousInt) {
                     share = 1;
-                    paramAnonymousDialogInterface.dismiss();
-                    //   paramAnonymousDialogInterface = new Intent("android.intent.action.VIEW", Uri.parse("market://details?id=com.klikapp.hangman2"));
-                    //  GameActivity.startActivity(paramAnonymousDialogInterface);
+                    rate = true;
+                    dialogInterface.dismiss();
+                    try {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(
+                                "https://play.google.com/store/apps/details?id=" + getPackageName()));
+                        intent.setPackage("com.android.vending");
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
+                    }
                 }
             }).setNegativeButton(getString(R.string.no_thanks), new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
-                    paramAnonymousDialogInterface.cancel();
+                public void onClick(DialogInterface dialogInterface, int paramAnonymousInt) {
+                    dialogInterface.cancel();
                 }
             });
             localBuilder.create().show();
@@ -303,14 +328,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
         AlertDialog.Builder localBuilder = new AlertDialog.Builder(this);
         localBuilder.setMessage(getString(R.string.share_message)).setCancelable(false).setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
+            public void onClick(DialogInterface dialogInterface, int paramAnonymousInt) {
                 share = 1;
-                paramAnonymousDialogInterface.dismiss();
+                dialogInterface.dismiss();
                 //  paramAnonymousDialogInterface = new Intent("android.intent.action.SEND");
-//                paramAnonymousDialogInterface.setType("text/plain");
-//                paramAnonymousDialogInterface.putExtra("android.intent.extra.SUBJECT", "Try Hangman Free");
-//                paramAnonymousDialogInterface.putExtra("android.intent.extra.TEXT", "Check out my new favorite Hangman GameActivity! Try it for free http://bit.ly/GetHangmanFree");
-//                GameActivity.startActivity(Intent.createChooser(paramAnonymousDialogInterface, "Share using..."));
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra("android.intent.extra.SUBJECT", getString(R.string.share_app_subject));
+                intent.putExtra("android.intent.extra.TEXT", getString(R.string.share_app_text) + "\n" + "https://play.google.com/store/apps/details?id=" + getPackageName());
+                startActivity(Intent.createChooser(intent, "Share using..."));
             }
         }).setNegativeButton(getString(R.string.no_thanks), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
@@ -324,10 +350,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         localBuilder = new AlertDialog.Builder(this);
         localBuilder.setMessage(getString(R.string.watch_video_message)).setCancelable(false).setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
-                paramAnonymousDialogInterface.dismiss();
-                //   paramAnonymousDialogInterface = new Intent("android.intent.action.VIEW", Uri.parse("market://details?id=com.klikapp.hangman2"));
-                //  GameActivity.startActivity(paramAnonymousDialogInterface);
+            public void onClick(DialogInterface dialogInterface, int paramAnonymousInt) {
+                dialogInterface.dismiss();
+                if (mRewardedVideoAd.isLoaded()) {
+                    mRewardedVideoAd.show();
+                } else {
+                    Log.i(TAG, "onClick: reward ad not loaded!");
+                    Toast.makeText(GameActivity.this , getString(R.string.reward_ad_not_loaded) , Toast.LENGTH_SHORT).show();
+                }
             }
         }).setNegativeButton(getString(R.string.no_thanks), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
@@ -371,10 +401,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.bHint)
             hintLogic();
         else if (v.getId() == R.id.bTranslate) {
+
             translationLogic();
         } else {
             Button button = (Button) v;
-            checkLetter(button.getText().toString());
+            checkLetter(button.getText().toString(), false);
             button.setEnabled(false);
             button.setBackgroundResource(R.drawable.keyboard_off);
         }
@@ -382,6 +413,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void showTranslate() {
+
         final Dialog dialog = new Dialog(this);
         View view = getLayoutInflater().inflate(R.layout.translation_dialog, null);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -397,6 +429,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         textView.setText(translation);
         dialog.setContentView(view);
         dialog.show();
+
     }
 
     @Override
@@ -416,6 +449,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         init();
 //        tvCategory.setOnClickListener(this);
     }
+
+    InterstitialAd mInterstitialAd;
+    RewardedVideoAd mRewardedVideoAd;
 
     private void init() {
         ivHangman = ((ImageView) findViewById(R.id.ivHangman));
@@ -446,7 +482,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         no_score = prefs.getInt("no_score", 0);
         no_correct = prefs.getInt("no_correct", 0);
         no_played = prefs.getInt("no_played", 0);
-        no_hint = prefs.getInt("no_hint", 20);
+        no_hint = prefs.getInt("no_hint", 10);
         no_translation = prefs.getInt("no_translation", 10);
         sound = prefs.getBoolean("sound", true);
         rate = prefs.getBoolean("rate", false);
@@ -460,7 +496,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         tvScore = ((TextView) findViewById(R.id.tvScore));
         tvTime = ((TextView) findViewById(R.id.tvTime));
 
-        category = prefs.getString("category", categories[0]);
+        category = prefs.getString("category", StartActivity.tableNames.get(0));
 
         item = PrepareWord.getWord(getApplicationContext(), category);
         word = PrepareWord.getWordByLanguage(item).toUpperCase().trim();
@@ -470,12 +506,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         translation = PrepareWord.getTranslation(item);
         tvCategory.setText(Utils.getStringResourceID(getApplicationContext(), category.toLowerCase()));
         tvWord.setText(hiddenWord);
-
+        tvScore.setText(persianNumber.toPersianNumber(String.valueOf(score)));
+        tvTime.setText(persianNumber.toPersianNumber(String.valueOf(time)));
         h = new Handler();
         r = new Runnable() {
             public void run() {
                 time++;
-                tvTime.setText("" + time);
+                tvTime.setText(persianNumber.toPersianNumber(String.valueOf(time)));
                 h.postDelayed(this, 1000L);
             }
         };
@@ -483,50 +520,55 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         hint = word;
         prepareHint();
 
-//        initAdMob();
+        initAdMob();
     }
 
     private void initAdMob() {
         //        mAdView = ((AdView)findViewById(2131165210));
 //        paramBundle = new AdRequest.Builder().addTestDevice("041422AA685448ADC53C7E51B28FC5D8").build();
 //        mAdView.loadAd(paramBundle);
-//        mInterstitialAd = new InterstitialAd(this);
-//        mInterstitialAd.setAdUnitId("ca-app-pub-9359804865113945/3779161280");
-//        mInterstitialAd.loadAd(new AdRequest.Builder().addTestDevice("041422AA685448ADC53C7E51B28FC5D8").build());
-//        mInterstitialAd.setAdListener(new AdListener()
-//        {
-//            public void onAdClosed()
-//            {
-//                GameActivity.finishGame(GameActivity.endState);
-//            }
-//        });
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        mInterstitialAd.setAdListener(new AdListener() {
+            public void onAdClosed() {
+                finishGame(endState);
+            }
+        });
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        mRewardedVideoAd.setRewardedVideoAdListener(this);
+        loadRewardedVideoAd();
     }
 
+    private void loadRewardedVideoAd() {
+        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+                new AdRequest.Builder().build());
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
         if (share == 2) {
-            if (!rate) {
-                Toast.makeText(this, "Thank you! You received +50 new hints!", Toast.LENGTH_SHORT).show();
+            if (rate) {
+                Toast.makeText(this, getString(R.string.hint_award_5), Toast.LENGTH_SHORT).show();
                 share = 0;
-                no_hint += 50;
+                no_hint += 5;
                 editor = getSharedPreferences("StartActivity", 0).edit();
                 editor.putInt("no_hint", no_hint);
                 editor.putBoolean("rate", true);
                 editor.apply();
                 bHint.setText(persianNumber.toPersianNumber(getString(R.string.hint) + " (" + no_hint + ")"));
+            } else {
+                Toast.makeText(this, getString(R.string.hint_award_5), Toast.LENGTH_SHORT).show();
+                share = 0;
+                no_hint += 5;
+                editor = getSharedPreferences("StartActivity", 0).edit();
+                editor.putInt("no_hint", no_hint);
+                editor.apply();
+                bHint.setText(persianNumber.toPersianNumber(getString(R.string.hint) + " (" + no_hint + ")"));
             }
-        } else {
-            return;
         }
-        Toast.makeText(this, "Thank you! You received +10 new hints!", Toast.LENGTH_SHORT).show();
-        share = 0;
-        no_hint += 15;
-        editor = getSharedPreferences("StartActivity", 0).edit();
-        editor.putInt("no_hint", no_hint);
-        editor.apply();
-        bHint.setText(persianNumber.toPersianNumber(getString(R.string.hint) + " (" + no_hint + ")"));
+
     }
 
     @Override
@@ -535,5 +577,60 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if (share == 1) {
             share = 2;
         }
+    }
+
+    @Override
+    public void onRewardedVideoAdLoaded() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdOpened() {
+
+    }
+
+    @Override
+    public void onRewardedVideoStarted() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdClosed() {
+
+        if(rewardCompleted)
+        {
+            Toast.makeText(this, getString(R.string.translation_award_5), Toast.LENGTH_SHORT).show();
+            no_translation += 5;
+            editor = getSharedPreferences("StartActivity", 0).edit();
+            editor.putInt("no_translation", no_translation);
+            editor.apply();
+            bTranslate.setText(persianNumber.toPersianNumber(getString(R.string.translate) + " (" + no_translation + ")"));
+
+            rewardCompleted = false;
+        }
+    }
+
+    @Override
+    public void onRewarded(RewardItem rewardItem) {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+
+    }
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int i) {
+
+        Log.i(TAG, "onRewardedVideoAdFailedToLoad: ");
+    }
+    boolean rewardCompleted = false;
+
+    @Override
+    public void onRewardedVideoCompleted() {
+
+        rewardCompleted = true;
+
     }
 }

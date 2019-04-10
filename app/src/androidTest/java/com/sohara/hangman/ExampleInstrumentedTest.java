@@ -1,4 +1,4 @@
-package com.soha.hangman;
+package com.sohara.hangman;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

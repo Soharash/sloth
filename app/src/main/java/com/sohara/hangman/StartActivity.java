@@ -1,10 +1,11 @@
-package com.soha.hangman;
+package com.sohara.hangman;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -20,13 +21,16 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.soha.hangman.Data.DataContract;
-import com.soha.hangman.Helper.PersianNumber;
-import com.soha.hangman.Helper.Utils;
-
-import org.w3c.dom.Text;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.sohara.hangman.Data.DataContract;
+import com.sohara.hangman.Data.DatabaseHelper;
+import com.sohara.hangman.Helper.PersianNumber;
+import com.sohara.hangman.Helper.Utils;
 
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,8 +43,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     Button bSettings;
     Button bStart;
     Button bLanguage;
-    String[] categories = DataContract.categories;
-    String[] categoriesPersianNames;
+    public static ArrayList<String> tableNames;
+    String[] categoryNames;
     public static String[] language = new String[]{"english", "فارسی"};
     public static String[] languageCodes = new String[]{"en", "fa"};
 
@@ -53,17 +57,20 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     String selectedCategory;
     String selectedLanguage;
     PersianNumber persianNumber;
+    TextView tvPoints;
+    String TAG = "StartActivity";
+    Resources currentResources;
 //    TextView tvDifficulty;
 
 
     public void onBackPressed() {
         AlertDialog.Builder localBuilder = new AlertDialog.Builder(this);
-        localBuilder.setMessage(getString(R.string.exit_message)).setCancelable(false).setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+        localBuilder.setMessage(currentResources.getString(R.string.exit_message)).setCancelable(false).setPositiveButton(currentResources.getString(R.string.yes), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int paramAnonymousInt) {
                 dialogInterface.dismiss();
                 finish();
             }
-        }).setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+        }).setNegativeButton(currentResources.getString(R.string.no), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int paramAnonymousInt) {
                 dialogInterface.cancel();
             }
@@ -86,18 +93,18 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
         ListView listView = view.findViewById(R.id.list_view);
         TextView textView = view.findViewById(R.id.title);
-        textView.setText(persianNumber.toPersianNumber(categories.length + " " + getString(R.string.category)));
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item, categoriesPersianNames);
+        textView.setText(persianNumber.toPersianNumber(tableNames.size() + " " + currentResources.getString(R.string.category)));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item, categoryNames);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedCategory = categoriesPersianNames[position];
+                selectedCategory = categoryNames[position];
                 bCategories.setText(selectedCategory);
                 editor = getSharedPreferences("StartActivity", 0).edit();
-                editor.putString("category", categories[position]);
+                editor.putString("category", tableNames.get(position));
                 editor.apply();
-                editor.putString("item_category", categories[position]);
+                editor.putString("item_category", tableNames.get(position));
                 dialog.dismiss();
             }
         });
@@ -117,7 +124,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
         ListView listView = view.findViewById(R.id.list_view);
         TextView textView = view.findViewById(R.id.title);
-        textView.setText(getString(R.string.language));
+        textView.setText(currentResources.getString(R.string.language));
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item, language);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -148,6 +155,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     protected void onResume() {
         super.onResume();
         bStart.setClickable(true);
+        prefs = getSharedPreferences("StartActivity", 0);
+        int no_score = prefs.getInt("no_score", 0);
+        tvPoints.setText(currentResources.getString(R.string.score) + " " + persianNumber.toPersianNumber(String.valueOf(no_score)));
     }
 
     public void onClick(View view) {
@@ -187,17 +197,25 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String beforeLanguage = getSharedPreferences("StartActivity", MODE_PRIVATE).getString("language", language[1]);
-        if (beforeLanguage.equals(language[1])) {
-//
+        String currentLanguage = getSharedPreferences("StartActivity", MODE_PRIVATE).getString("language", language[1]);
+        if (currentLanguage.equals(language[1])) {
+            Utils.changeLocale(this, languageCodes[1]);
+            currentResources = Utils.getLocalizedResources(this , languageCodes[1]);
+        } else {
+            Utils.changeLocale(this, languageCodes[0]);
+            currentResources = Utils.getLocalizedResources(this , languageCodes[0]);
+        }
+//        Utils.forceLtrIfSupported(this);
+        setContentView(R.layout.activity_start);
+//        String currentLanguage = getSharedPreferences("StartActivity", MODE_PRIVATE).getString("language", language[1]);
+        if (currentLanguage.equals(language[1])) {
             Utils.changeLocale(this, languageCodes[1]);
         } else {
-//
             Utils.changeLocale(this, languageCodes[0]);
         }
-        Utils.forceLtrIfSupported(this);
-        setContentView(R.layout.activity_start);
         init();
+
+        tableNames = DatabaseHelper.getAllTables(this);
 
         ibSound.setOnClickListener(this);
         if (prefs.getBoolean("sound", true)) {
@@ -210,25 +228,40 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         bStart.setOnClickListener(this);
         bMultiplayer.setOnClickListener(this);
         bSettings.setOnClickListener(this);
-        selectedCategory = prefs.getString("category", categories[0]);
-        bCategories.setText(Utils.getStringResourceID(this, selectedCategory.toLowerCase()));
+        selectedCategory = prefs.getString("category", tableNames.get(0));
+
+
+        bCategories.setText(categoryNames[tableNames.indexOf(selectedCategory)]);
         selectedLanguage = prefs.getString("language", language[1]);
         bLanguage.setText(selectedLanguage);
     }
 
     private void init() {
         persianNumber = new PersianNumber(this);
-        categoriesPersianNames = getResources().getStringArray(R.array.categories);
+        categoryNames = getResources().getStringArray(R.array.categories);
         prefs = getSharedPreferences("StartActivity", 0);
         bCategories = findViewById(R.id.bCategories);
         bLanguage = findViewById(R.id.bLanguage);
-        bCategories.setText(categoriesPersianNames[0]);
+        bCategories.setText(categoryNames[0]);
         bStart = findViewById(R.id.bStart);
         bMultiplayer = findViewById(R.id.bMultiplayer);
         bSettings = findViewById(R.id.bSettings);
         ibSound = findViewById(R.id.ibSound);
         ibNoSound = findViewById(R.id.ibClose);
+        tvPoints = findViewById(R.id.tvPoints);
 
+        initAdMob();
+    }
 
+    AdView mAdView;
+
+    private void initAdMob() {
+        MobileAds.initialize(getApplicationContext(), getString(R.string.admob_app_id));
+        mAdView = findViewById(R.id.adView);
+        //if (isVisibleToUser) {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        mAdView.setLayerType(AdView.LAYER_TYPE_SOFTWARE, null); //instead of LAYER_TYPE_HARDWARE
     }
 }

@@ -1,10 +1,10 @@
-package com.soha.hangman.CustomViews;
+package com.sohara.hangman.CustomViews;
 
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 
-import com.soha.hangman.Helper.Utils;
+import com.sohara.hangman.Helper.Utils;
 
 import androidx.appcompat.widget.AppCompatButton;
 

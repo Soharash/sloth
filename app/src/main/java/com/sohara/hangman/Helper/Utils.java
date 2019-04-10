@@ -1,8 +1,9 @@
-package com.soha.hangman.Helper;
+package com.sohara.hangman.Helper;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.view.View;
 
@@ -39,9 +40,19 @@ public class Utils {
 
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        context.getResources().updateConfiguration(config,
+        Configuration conf = context.getResources().getConfiguration();
+        conf.setLocale(locale);
+        context.getResources().updateConfiguration(conf,
                 context.getResources().getDisplayMetrics());
+    }
+    public static Resources getLocalizedResources(Context context, String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+
+        Configuration conf = context.getResources().getConfiguration();
+        conf = new Configuration(conf);
+        conf.setLocale(locale);
+        Context localizedContext = context.createConfigurationContext(conf);
+        return localizedContext.getResources();
     }
 }

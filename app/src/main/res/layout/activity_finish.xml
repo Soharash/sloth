@@ -1,208 +1,208 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:background="@color/colorPrimary">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:orientation="vertical">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    <LinearLayout
-        android:id="@+id/llRate"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="10.0dip"
-        android:visibility="invisible">
-
-        <com.soha.hangman.CustomViews.CustomTextView
-            android:id="@+id/tvRate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5.0dip"
-            android:layout_weight="1.0"
-            android:gravity="center_horizontal"
-            android:tag="2"
-            android:text="@string/enjoy_hangman"
-            android:textColor="#ffffffff"
-            android:textSize="20.0sp" />
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0"
-            android:orientation="horizontal">
-
-            <com.soha.hangman.CustomViews.CustomButton
-                android:id="@+id/bRate1"
-                android:layout_width="150.0dip"
-                android:layout_height="35.0dip"
-                android:layout_margin="5.0dip"
-                android:background="@drawable/rate"
-                android:tag="2"
-                android:text="@string/not_really"
-                android:textAllCaps="false"
-                android:textColor="#ffffffff"
-                android:textSize="18.0sp" />
-
-            <com.soha.hangman.CustomViews.CustomButton
-                android:id="@+id/bRate2"
-                android:layout_width="150.0dip"
-                android:layout_height="35.0dip"
-                android:layout_margin="5.0dip"
-                android:background="@drawable/rate"
-                android:tag="2"
-                android:text="@string/yes"
-                android:textAllCaps="false"
-                android:textColor="#ffffffff"
-                android:textSize="18.0sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/status_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/win" />
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10.0dip">
-
-        <com.soha.hangman.CustomViews.CustomTextView
-            android:id="@+id/tvStatus"
+            android:id="@+id/llRate"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0"
+            android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:tag="2"
-            android:text="WRONG!"
-            android:textColor="#ffffffff"
-            android:textSize="40.0sp" />
+            android:orientation="vertical"
+            android:padding="10.0dip"
+            android:visibility="invisible">
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <com.soha.hangman.CustomViews.CustomTextView
-                android:id="@+id/tvAnswer"
+            <com.sohara.hangman.CustomViews.CustomTextView
+                android:id="@+id/tvRate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5.0dip"
+                android:layout_weight="1.0"
                 android:gravity="center_horizontal"
                 android:tag="2"
-                android:text="WORD: HANGMAN"
+                android:text="@string/enjoy_hangman"
                 android:textColor="#ffffffff"
-                android:textSize="23.0sp" />
+                android:textSize="20.0sp" />
 
-            <Button
-                android:id="@+id/bFindMore"
-                android:layout_width="25.0dip"
-                android:layout_height="25.0dip"
-                android:layout_margin="10.0dip"
-                android:background="@drawable/button_learn"
-                android:text="\?"
-                android:textColor="@color/colorKeyboard"
-                android:textSize="18.0sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:orientation="horizontal">
+
+                <com.sohara.hangman.CustomViews.CustomButton
+                    android:id="@+id/bRate1"
+                    android:layout_width="150.0dip"
+                    android:layout_height="35.0dip"
+                    android:layout_margin="5.0dip"
+                    android:background="@drawable/rate"
+                    android:tag="2"
+                    android:text="@string/not_really"
+                    android:textAllCaps="false"
+                    android:textColor="#ffffffff"
+                    android:textSize="18.0sp" />
+
+                <com.sohara.hangman.CustomViews.CustomButton
+                    android:id="@+id/bRate2"
+                    android:layout_width="150.0dip"
+                    android:layout_height="35.0dip"
+                    android:layout_margin="5.0dip"
+                    android:background="@drawable/rate"
+                    android:tag="2"
+                    android:text="@string/yes"
+                    android:textAllCaps="false"
+                    android:textColor="#ffffffff"
+                    android:textSize="18.0sp" />
+            </LinearLayout>
         </LinearLayout>
 
-        <com.soha.hangman.CustomViews.CustomTextView
-            android:id="@+id/tvTranslation"
-            android:layout_width="fill_parent"
+        <ImageView
+            android:id="@+id/status_image"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:gravity="center_horizontal"
-            android:padding="3.0dip"
-            android:tag="2"
-            android:text="Translation: 0"
-            android:textColor="#ffffffff"
-            android:textIsSelectable="false"
-            android:textSize="22.0sp" />
-
-        <com.soha.hangman.CustomViews.CustomTextView
-            android:id="@+id/tvSolved"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:gravity="center_horizontal"
-            android:padding="3.0dip"
-            android:tag="2"
-            android:text="SOLVED PUZZLES: 0"
-            android:textColor="#ffffffff"
-            android:textIsSelectable="false"
-            android:textSize="22.0sp" />
-
-        <com.soha.hangman.CustomViews.CustomTextView
-            android:id="@+id/tvScore"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:gravity="center_horizontal"
-            android:padding="3.0dip"
-            android:tag="2"
-            android:text="SCORE: 0"
-            android:textColor="#ffffffff"
-            android:textSize="22.0sp" />
-
-        <com.soha.hangman.CustomViews.CustomTextView
-            android:id="@+id/tvHint"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:gravity="center_horizontal"
-            android:tag="2"
-            android:text="@string/new_hint"
-            android:textColor="#ffffffff"
-            android:textSize="25.0sp"
-            android:visibility="gone" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/win" />
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10.0dip">
 
-            <com.soha.hangman.CustomViews.CustomButton
-                android:id="@+id/bNextPuzzle"
-                android:layout_width="wrap_content"
+            <com.sohara.hangman.CustomViews.CustomTextView
+                android:id="@+id/tvStatus"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10.0dip"
                 android:layout_weight="1.0"
-                android:background="@drawable/button_round"
-                android:paddingLeft="30.0dip"
-                android:paddingRight="30.0dip"
+                android:gravity="center_horizontal"
                 android:tag="2"
-                android:text="@string/next_puzzle"
-                android:textSize="30.0sp" />
+                android:text="WRONG!"
+                android:textColor="#ffffffff"
+                android:textSize="40.0sp" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.sohara.hangman.CustomViews.CustomTextView
+                    android:id="@+id/tvAnswer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:tag="2"
+                    android:text="WORD: HANGMAN"
+                    android:textColor="#ffffffff"
+                    android:textSize="30.0sp" />
+
+                <Button
+                    android:id="@+id/bFindMore"
+                    android:layout_width="25.0dip"
+                    android:layout_height="25.0dip"
+                    android:layout_margin="10.0dip"
+                    android:background="@drawable/button_learn"
+                    android:text="\?"
+                    android:textColor="@color/colorKeyboard"
+                    android:textSize="18.0sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <com.sohara.hangman.CustomViews.CustomTextView
+                android:id="@+id/tvTranslation"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:gravity="center_horizontal"
+                android:padding="3.0dip"
+                android:tag="2"
+                android:text="Translation: 0"
+                android:textColor="#ffffffff"
+                android:textIsSelectable="false"
+                android:textSize="30sp" />
+
+            <com.sohara.hangman.CustomViews.CustomTextView
+                android:id="@+id/tvSolved"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:gravity="center_horizontal"
+                android:padding="3.0dip"
+                android:tag="2"
+                android:text="SOLVED PUZZLES: 0"
+                android:textColor="#ffffffff"
+                android:textIsSelectable="false"
+                android:textSize="30sp" />
+
+            <com.sohara.hangman.CustomViews.CustomTextView
+                android:id="@+id/tvScore"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:gravity="center_horizontal"
+                android:padding="3.0dip"
+                android:tag="2"
+                android:text="SCORE: 0"
+                android:textColor="#ffffffff"
+                android:textSize="30sp" />
+
+            <com.sohara.hangman.CustomViews.CustomTextView
+                android:id="@+id/tvHint"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:gravity="center_horizontal"
+                android:tag="2"
+                android:text="@string/new_hint"
+                android:textColor="#ffffffff"
+                android:textSize="25.0sp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <com.sohara.hangman.CustomViews.CustomButton
+                    android:id="@+id/bNextPuzzle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10.0dip"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/button_round"
+                    android:paddingLeft="30.0dip"
+                    android:paddingRight="30.0dip"
+                    android:tag="2"
+                    android:text="@string/next_puzzle"
+                    android:textSize="40sp" />
+            </LinearLayout>
         </LinearLayout>
+
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginTop="5dip"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_ad" />
     </LinearLayout>
-
-
-    <!--<com.google.android.gms.ads.AdView-->
-    <!--android:id="@+id/adView"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:layout_centerHorizontal="true"-->
-    <!--android:layout_marginBottom="5.0dip"-->
-    <!--android:layout_marginTop="5.0dip"-->
-    <!--ads:adSize="BANNER"-->
-    <!--ads:adUnitId="@string/banner_ad_finish" />-->
-</LinearLayout>
 </ScrollView>

@@ -7,7 +7,7 @@
     android:minHeight="46dp"
     android:textColor="@android:color/white"
     android:gravity="center"
-    android:textSize="20sp"
+    android:textSize="24sp"
     android:orientation="vertical">
 
 </com.sohara.hangman.CustomViews.CustomTextView>

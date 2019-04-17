@@ -528,7 +528,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 //        paramBundle = new AdRequest.Builder().addTestDevice("041422AA685448ADC53C7E51B28FC5D8").build();
 //        mAdView.loadAd(paramBundle);
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(new AdListener() {
             public void onAdClosed() {
@@ -541,7 +541,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void loadRewardedVideoAd() {
-        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+        mRewardedVideoAd.loadAd(getString(R.string.rewarded_video_ad),
                 new AdRequest.Builder().build());
     }
 

@@ -27,7 +27,10 @@ public class PrepareWord {
         // String[] array = readText(paramString).split(";");
         ArrayList<Word> words = DatabaseHelper.getAllWords(context, tableName);
         if (words.size() > 0) {
+            if(i < words.size() - 1)
             i += 1;
+            else
+                i = 0;
             localEditor.putInt(temp, i);
             localEditor.apply();
             return words.get(i);

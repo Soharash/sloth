@@ -128,7 +128,7 @@ public class FinishActivity
             public void onClick(View paramAnonymousView) {
 
                 llRate.setVisibility(View.INVISIBLE);
-                editor = getSharedPreferences("Start", 0).edit();
+                editor = getSharedPreferences("StartActivity", 0).edit();
                 editor.putInt("rate_delay", no_correct + 10);
                 editor.apply();
 
@@ -151,7 +151,7 @@ public class FinishActivity
                     } catch (Exception e) {
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
                     }
-                    editor = getSharedPreferences("Start", 0).edit();
+                    editor = getSharedPreferences("StartActivity", 0).edit();
                     editor.putBoolean("rate", true);
                     editor.apply();
                 }

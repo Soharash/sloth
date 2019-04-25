@@ -18,7 +18,7 @@ android {
                 variant.outputs.all {
                     def date = new Date()
                     def formattedDate = date.format('yyyy-MM-dd-HH')
-                    outputFileName = "${rootProject.name}_${defaultConfig.versionName}_${formattedDate}.apk"
+                    outputFileName = "${rootProject.name}_{CafeBazaar}_${defaultConfig.versionName}_${formattedDate}.apk"
                 }
             }
         }

@@ -310,12 +310,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     dialogInterface.dismiss();
                     try {
                         Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(
-                                "https://play.google.com/store/apps/details?id=" + getPackageName()));
-                        intent.setPackage("com.android.vending");
+                        intent.setData(Uri.parse("bazaar://details?id=" + getPackageName()));
+                        intent.setPackage("com.farsitel.bazaar");
                         startActivity(intent);
                     } catch (Exception e) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://cafebazaar.ir/app/" + getPackageName())));
                     }
                 }
             }).setNegativeButton(getString(R.string.no_thanks), new DialogInterface.OnClickListener() {
@@ -335,7 +334,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra("android.intent.extra.SUBJECT", getString(R.string.share_app_subject));
-                intent.putExtra("android.intent.extra.TEXT", getString(R.string.share_app_text) + "\n" + "https://play.google.com/store/apps/details?id=" + getPackageName());
+                intent.putExtra("android.intent.extra.TEXT", getString(R.string.share_app_text) + "\n" + "https://cafebazaar.ir/app/" + getPackageName());
                 startActivity(Intent.createChooser(intent, "Share using..."));
             }
         }).setNegativeButton(getString(R.string.no_thanks), new DialogInterface.OnClickListener() {

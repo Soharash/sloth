@@ -128,7 +128,7 @@ public class FinishActivity
             public void onClick(View paramAnonymousView) {
 
                 llRate.setVisibility(View.INVISIBLE);
-                editor = getSharedPreferences("Start", 0).edit();
+                editor = getSharedPreferences("StartActivity", 0).edit();
                 editor.putInt("rate_delay", no_correct + 10);
                 editor.apply();
 
@@ -144,14 +144,13 @@ public class FinishActivity
                 } else if (rating == 11) {
                     try {
                         Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(
-                                "https://play.google.com/store/apps/details?id=" + getPackageName()));
-                        intent.setPackage("com.android.vending");
+                        intent.setData(Uri.parse("bazaar://details?id=" + getPackageName()));
+                        intent.setPackage("com.farsitel.bazaar");
                         startActivity(intent);
                     } catch (Exception e) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://cafebazaar.ir/app/" + getPackageName())));
                     }
-                    editor = getSharedPreferences("Start", 0).edit();
+                    editor = getSharedPreferences("StartActivity", 0).edit();
                     editor.putBoolean("rate", true);
                     editor.apply();
                 }

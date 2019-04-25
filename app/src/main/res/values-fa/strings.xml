@@ -26,7 +26,7 @@
     <string name="ok">باشه!</string>
     <string name="rate_message">با امتیازدهی به برنامه 5 راهنمایی جدید کسب کنید!</string>
     <string name="share_message">برنامه را با دوستان خود به اشتراک گذاشته و 5 راهنمایی جدید کسب کنید!</string>
-    <string name="watch_video_message">با تماشای یک ویدئو تبلیغاتی 5 ترجمه کسب کنید!\n(لطفا فیلترشکن خود را فعال کنید)</string>
+    <string name="watch_video_message">با تماشای یک ویدئو تبلیغاتی 5 ترجمه کسب کنید!</string>
 
     <string name="dummy_content"></string>
 
@@ -50,7 +50,7 @@
     <string name="exit_message">مطمئنی میخوای از این صفحه خارج بشی؟</string>
     <string name="no">نه!</string>
     <string name="language">زبان</string>
-    <string name="rate_if_enjoy">پس چطوره در گوگل پلی به اپ امتیاز بدی؟</string>
+    <string name="rate_if_enjoy">پس چطوره در کافه بازار به اپ امتیاز بدی؟</string>
 
     <string name="reward_ad_not_loaded">متأسفانه ویدئو بارگذاری نشده است! لطفا بعدا تلاش نمایید!</string>
 

@@ -24,7 +24,7 @@
     <string name="ok">OK!</string>
     <string name="rate_message">Rate us and get 5 more hints!</string>
     <string name="share_message">Share this application with your friends and receive 5 more hints!</string>
-    <string name="watch_video_message">Watch the ad video to earn 5 more translations!\n(Please connect to a vpn)</string>
+    <string name="watch_video_message">Watch the ad video to earn 5 more translations!</string>
 
     <string name="dummy_content"></string>
 
@@ -53,7 +53,7 @@
 
     <string name="hint_award_5">Thank you! You received +5 new hints!</string>
     <string name="translation_award_5">Thank you! You received +5 new translations!</string>
-    <string name="rate_if_enjoy">How about a rating on the Play Store, then?</string>
+    <string name="rate_if_enjoy">How about a rating on Cafe Bazaar, then?</string>
 
     <string name="reward_ad_not_loaded">Unable to load reward video! Please try again later!</string>
 

@@ -2,14 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:fillViewport="true">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:orientation="vertical">
@@ -40,17 +40,7 @@
                 android:padding="15.0dip"
                 app:srcCompat="@mipmap/ic_music_note_white_24dp" />
 
-            <com.sohara.hangman.CustomViews.CustomTextView
-                android:id="@+id/tvPoints"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:padding="16dp"
-                android:text="@string/score"
-                android:tag="2"
-                android:textColor="@android:color/white"
-                android:textSize="22sp" />
+
         </RelativeLayout>
 
         <com.sohara.hangman.CustomViews.CustomTextView
@@ -71,6 +61,16 @@
             android:layout_centerVertical="true"
             android:gravity="center_horizontal"
             android:orientation="vertical">
+            <com.sohara.hangman.CustomViews.CustomTextView
+                android:id="@+id/tvPoints"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+
+                android:tag="2"
+                android:layout_marginTop="20dp"
+                android:textColor="#FFDF00"
+                android:textSize="34dp" />
 
             <LinearLayout
                 android:id="@+id/category_layout"
@@ -135,6 +135,7 @@
                     android:textSize="24sp" />
 
             </LinearLayout>
+
         </LinearLayout>
 
         <com.sohara.hangman.CustomViews.CustomButton

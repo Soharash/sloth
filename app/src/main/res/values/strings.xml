@@ -57,6 +57,9 @@
 
     <string name="reward_ad_not_loaded">Unable to load reward video! Please try again later!</string>
 
+    <string name="finish_category">Congratulations!\n\nYou\'ve finished this category!</string>
+    <string name="return_to_first_page">return to home page</string>
+
     <string name="admob_app_id" translatable="false">ca-app-pub-9225557010209066~3045339004</string>
     <string name="banner_ad" translatable="false">ca-app-pub-9225557010209066/8489237370</string>
     <string name="interstitial_ad" translatable="false">ca-app-pub-9225557010209066/7555784875</string>

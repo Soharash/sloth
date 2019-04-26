@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 28
@@ -6,9 +7,10 @@ android {
         applicationId "com.sohara.hangman"
         minSdkVersion 17
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionCode 2
+        versionName "1.1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test:runner:1.1.1"
     }
     buildTypes {
         release {
@@ -26,18 +28,23 @@ android {
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.legacy:legacy-support-core-ui:1.0.0'
-    annotationProcessor 'androidx.annotation:annotation:1.0.2'
-    testImplementation 'junit:junit:4.12'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
     implementation ('com.google.android.gms:play-services-ads:16.0.0'
     ){
         exclude group: 'com.android.support', module:'support-v4'
         exclude group: 'com.android.support', module: 'support-annotation'
         exclude group: 'com.android.support', module: 'support-compat'
     }
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.plattysoft.leonids:LeonidsLib:1.3.2'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
+    annotationProcessor 'androidx.annotation:annotation:1.0.2'
+    testImplementation 'junit:junit:4.12'
+
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation ('androidx.test.espresso:espresso-core:3.1.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 }
+apply plugin: 'com.google.gms.google-services'

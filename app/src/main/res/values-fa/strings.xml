@@ -28,6 +28,9 @@
     <string name="share_message">برنامه را با دوستان خود به اشتراک گذاشته و 5 راهنمایی جدید کسب کنید!</string>
     <string name="watch_video_message">با تماشای یک ویدئو تبلیغاتی 5 ترجمه کسب کنید!\n(لطفا فیلترشکن خود را فعال کنید)</string>
 
+    <string name="finish_category">تبریک!\n\nشما کلمات این دسته را به پایان رسانده اید!</string>
+
+    <string name="return_to_first_page">بازگشت به صفحه اصلی</string>
     <string name="dummy_content"></string>
 
     <string name="animals">حیوانات</string>

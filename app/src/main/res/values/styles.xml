@@ -2,7 +2,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     
     <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="android:soundEffectsEnabled">false</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

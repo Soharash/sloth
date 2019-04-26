@@ -355,7 +355,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     mRewardedVideoAd.show();
                 } else {
                     Log.i(TAG, "onClick: reward ad not loaded!");
-                    Toast.makeText(GameActivity.this , getString(R.string.reward_ad_not_loaded) , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GameActivity.this, getString(R.string.reward_ad_not_loaded), Toast.LENGTH_SHORT).show();
                 }
             }
         }).setNegativeButton(getString(R.string.no_thanks), new DialogInterface.OnClickListener() {
@@ -498,11 +498,20 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         category = prefs.getString("category", StartActivity.tableNames.get(0));
 
         item = PrepareWord.getWord(getApplicationContext(), category);
-        word = PrepareWord.getWordByLanguage(item).toUpperCase().trim();
+
+        if (item == null) {
+            Log.i(TAG, "init: " + (item == null));
+            Intent intent = new Intent(this, FinishCategoryActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            word = PrepareWord.getWordByLanguage(item).toUpperCase().trim();
+            translation = PrepareWord.getTranslation(item);
+        }
 
 
         hiddenWord = PrepareWord.prepare(word);
-        translation = PrepareWord.getTranslation(item);
+
         tvCategory.setText(Utils.getStringResourceID(getApplicationContext(), category.toLowerCase()));
         tvWord.setText(hiddenWord);
         tvScore.setText(persianNumber.toPersianNumber(String.valueOf(score)));
@@ -596,8 +605,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onRewardedVideoAdClosed() {
 
-        if(rewardCompleted)
-        {
+        if (rewardCompleted) {
             Toast.makeText(this, getString(R.string.translation_award_5), Toast.LENGTH_SHORT).show();
             no_translation += 5;
             editor = getSharedPreferences("StartActivity", 0).edit();
@@ -624,6 +632,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         Log.i(TAG, "onRewardedVideoAdFailedToLoad: ");
     }
+
     boolean rewardCompleted = false;
 
     @Override

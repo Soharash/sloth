@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "724639635565",
+    "firebase_url": "https://android-projects-bbad6.firebaseio.com",
+    "project_id": "android-projects-bbad6",
+    "storage_bucket": "android-projects-bbad6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:724639635565:android:1d735f0c8b4949cd",
+        "android_client_info": {
+          "package_name": "com.sohara.hangman"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "724639635565-a0sld01i60jvi4nmgbmisc2h7irge66g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgVPhk9crVQB6Ssc0IIJgGmQqS_qWxYXE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "724639635565-a0sld01i60jvi4nmgbmisc2h7irge66g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

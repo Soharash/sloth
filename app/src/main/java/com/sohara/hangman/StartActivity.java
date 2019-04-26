@@ -237,6 +237,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void init() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
         persianNumber = new PersianNumber(this);
         categoryNames = getResources().getStringArray(R.array.categories);
         prefs = getSharedPreferences("StartActivity", 0);

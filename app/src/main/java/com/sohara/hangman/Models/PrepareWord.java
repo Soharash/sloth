@@ -27,10 +27,10 @@ public class PrepareWord {
         // String[] array = readText(paramString).split(";");
         ArrayList<Word> words = DatabaseHelper.getAllWords(context, tableName);
         if (words.size() > 0) {
-            if(i < words.size() - 1)
-            i += 1;
+            if (i < words.size() - 1)
+                i += 1;
             else
-                i = 0;
+                return null;
             localEditor.putInt(temp, i);
             localEditor.apply();
             return words.get(i);
@@ -38,61 +38,59 @@ public class PrepareWord {
             return null;
     }
 
-    public static String getWordByLanguage(Word word)
-    {
-        SharedPreferences prefs = context.getSharedPreferences("StartActivity" , MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        String language = prefs.getString("language", StartActivity.language[1]);
-        editor.putString("random_language" , language).apply();
-        if(language.equals(StartActivity.language[0]))
-            return word.word;
-        else if(language.equals(StartActivity.language[1]))
-            return word.meaning;
-        else
-        {
-            Random random = new Random();
-            int i = random.nextInt(2);
-            if(i == 1) {
-                editor.putString("random_language" , StartActivity.language[0]).apply();
+    public static String getWordByLanguage(Word word) {
+            SharedPreferences prefs = context.getSharedPreferences("StartActivity", MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            String language = prefs.getString("language", StartActivity.language[1]);
+            editor.putString("random_language", language).apply();
+            if (language.equals(StartActivity.language[0]))
                 return word.word;
-            }
-            else {
-                editor.putString("random_language" , StartActivity.language[1]).apply();
+            else if (language.equals(StartActivity.language[1]))
                 return word.meaning;
+            else {
+                Random random = new Random();
+                int i = random.nextInt(2);
+                if (i == 1) {
+                    editor.putString("random_language", StartActivity.language[0]).apply();
+                    return word.word;
+                } else {
+                    editor.putString("random_language", StartActivity.language[1]).apply();
+                    return word.meaning;
+                }
             }
-        }
+
     }
-    public static String getTranslation(Word word)
-    {
-        SharedPreferences prefs = context.getSharedPreferences("StartActivity" , MODE_PRIVATE);
+
+    public static String getTranslation(Word word) {
+
+
+        SharedPreferences prefs = context.getSharedPreferences("StartActivity", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         String language = prefs.getString("language", StartActivity.language[1]);
-        editor.putString("random_language" , language).apply();
-        if(language.equals(StartActivity.language[0]))
+        editor.putString("random_language", language).apply();
+        if (language.equals(StartActivity.language[0]))
             return word.meaning;
-        else if(language.equals(StartActivity.language[1]))
+        else if (language.equals(StartActivity.language[1]))
             return word.word;
-        else
-        {
+        else {
             Random random = new Random();
             int i = random.nextInt(2);
-            if(i == 1) {
-                editor.putString("random_language" , StartActivity.language[0]).apply();
+            if (i == 1) {
+                editor.putString("random_language", StartActivity.language[0]).apply();
                 return word.meaning;
-            }
-            else {
-                editor.putString("random_language" , StartActivity.language[1]).apply();
+            } else {
+                editor.putString("random_language", StartActivity.language[1]).apply();
                 return word.word;
             }
         }
+
     }
 
     public static String prepare(String theWord) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        for(char ch: theWord.toCharArray() )
-        {
-            if(ch == ' ')
+        for (char ch : theWord.toCharArray()) {
+            if (ch == ' ')
                 stringBuilder.append(ch);
             else
                 stringBuilder.append("_");

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/content"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/emiter_top_left"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="-20dp"
+        android:text="d" />
+
+    <TextView
+        android:id="@+id/emiter_top_right"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+       android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="-20dp"
+        android:text="f" />
+
+    <!--<com.sohara.hangman.CustomViews.CustomTextView-->
+    <!--android:id="@+id/view"-->
+    <!--android:layout_width="10dp"-->
+    <!--android:layout_height="10dp"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:tag="2" />-->
+
+    <!--<com.sohara.hangman.CustomViews.CustomTextView-->
+    <!--android:id="@+id/view1"-->
+    <!--android:layout_width="10dp"-->
+    <!--android:layout_height="10dp"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:paddingTop="8dp"-->
+    <!--android:tag="2" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <com.sohara.hangman.CustomViews.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:tag="2"
+            android:text="@string/finish_category"
+            android:textColor="@android:color/white"
+            android:textSize="28sp" />
+
+        <com.sohara.hangman.CustomViews.CustomButton
+            android:id="@+id/bReturn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_round"
+            android:paddingLeft="20dp"
+            android:paddingTop="4dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="4dp"
+            android:tag="2"
+            android:text="@string/return_to_first_page"
+            android:textSize="24sp" />
+    </LinearLayout>
+</RelativeLayout>
+

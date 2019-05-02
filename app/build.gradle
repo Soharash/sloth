@@ -7,8 +7,8 @@ android {
         applicationId "com.sohara.hangman"
         minSdkVersion 17
         targetSdkVersion 28
-        versionCode 3
-        versionName "1.1.1"
+        versionCode 4
+        versionName "1.2.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test:runner:1.1.1"
     }
@@ -20,7 +20,7 @@ android {
                 variant.outputs.all {
                     def date = new Date()
                     def formattedDate = date.format('yyyy-MM-dd-HH')
-                    outputFileName = "${rootProject.name}_{CafeBazaar}_${defaultConfig.versionName}_${formattedDate}.apk"
+                    outputFileName = "${rootProject.name}_${defaultConfig.versionName}_${formattedDate}.apk"
                 }
             }
         }

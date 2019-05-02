@@ -27,7 +27,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:background="#00ffffff"
-                android:padding="9.0dip"
+                android:padding="10dp"
                 app:srcCompat="@mipmap/ic_close_white_36dp" />
 
             <ImageButton
@@ -40,6 +40,38 @@
                 android:padding="15.0dip"
                 app:srcCompat="@mipmap/ic_music_note_white_24dp" />
 
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:id="@+id/privacy_policy_layout"
+                android:layout_alignParentLeft="true"
+                android:gravity="center_vertical"
+                android:layout_alignParentTop="true">
+
+                <com.sohara.hangman.CustomViews.IconTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_shield_alt"
+                    android:textSize="24dp"
+                    android:id="@+id/icon"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:textColor="@android:color/white"
+                    android:tag="font_awesome_solid.otf"/>
+
+                <com.sohara.hangman.CustomViews.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="2"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/icon"
+                    android:text="Privacy  Policy"
+                    android:textSize="20dp"
+                    android:textColor="@android:color/white"
+                    android:layout_margin="4dp"/>
+            </RelativeLayout>
 
         </RelativeLayout>
 

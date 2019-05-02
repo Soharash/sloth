@@ -60,6 +60,8 @@
     <string name="finish_category">Congratulations!\n\nYou\'ve finished this category!</string>
     <string name="return_to_first_page">return to home page</string>
 
+
+    <string name="privacy_policy_url" translatable="false">http://198.143.180.134:8585/dezhkhim/privacy_policy.html</string>
     <string name="admob_app_id" translatable="false">ca-app-pub-9225557010209066~3045339004</string>
     <string name="banner_ad" translatable="false">ca-app-pub-9225557010209066/8489237370</string>
     <string name="interstitial_ad" translatable="false">ca-app-pub-9225557010209066/7555784875</string>

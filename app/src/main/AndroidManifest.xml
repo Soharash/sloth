@@ -10,6 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_new"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.sohara.hangman.FinishActivity" />
         <activity android:name="com.sohara.hangman.StartActivity">
@@ -20,6 +21,7 @@
         </activity>
         <activity android:name="com.sohara.hangman.GameActivity" />
         <activity android:name=".FinishCategoryActivity" />
+        <activity android:name=".PrivacyPolicyActivity" />
     </application>
 
 </manifest>

@@ -49,10 +49,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     String[] categoryNames;
     public static String[] language = new String[]{"english", "فارسی"};
     public static String[] languageCodes = new String[]{"en", "fa"};
-
-    //    String[] difficulty = { "Easy", "Medium", "Hard" };
     SharedPreferences.Editor editor;
-    Typeface font;
     ImageButton ibNoSound;
     ImageButton ibSound;
     SharedPreferences prefs;
@@ -62,8 +59,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     TextView tvPoints;
     String TAG = "StartActivity";
     Resources currentResources;
-    RelativeLayout privacyPolicyLayout;
-//    TextView tvDifficulty;
+    LinearLayout privacyPolicyLayout;
 
 
     public void onBackPressed() {
@@ -220,6 +216,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         } else {
             Utils.changeLocale(this, languageCodes[0]);
         }
+        Utils.forceLtrIfSupported(this);
         init();
 
         tableNames = DatabaseHelper.getAllTables(this);

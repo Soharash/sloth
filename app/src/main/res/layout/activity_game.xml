@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:tag="font_awesome_solid.otf"
-                android:text="@string/icon_award"
+                android:text="@string/icon_star"
                 android:textColor="@color/gold_color"
                 android:textSize="20dp" />
 

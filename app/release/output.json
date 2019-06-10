@@ -1,1 +1,7 @@
+<<<<<<< HEAD
 [{"outputType":{"type":"APK"},"apkData":{"type":"MAIN","splits":[],"versionCode":3,"versionName":"1.1.1","enabled":true,"outputFile":"Hangman_{CafeBazaar}_1.1.1_2019-04-27-13.apk","fullName":"release","baseName":"release"},"path":"Hangman_{CafeBazaar}_1.1.1_2019-04-27-13.apk","properties":{}}]
+||||||| merged common ancestors
+[{"outputType":{"type":"APK"},"apkData":{"type":"MAIN","splits":[],"versionCode":2,"versionName":"1.1.0","enabled":true,"outputFile":"Hangman_1.1.0_2019-04-26-21.apk","fullName":"release","baseName":"release"},"path":"Hangman_1.1.0_2019-04-26-21.apk","properties":{}}]
+=======
+[{"outputType":{"type":"APK"},"apkData":{"type":"MAIN","splits":[],"versionCode":4,"versionName":"1.2.0","enabled":true,"outputFile":"Hangman_1.2.0_2019-06-09-12.apk","fullName":"release","baseName":"release"},"path":"Hangman_1.2.0_2019-06-09-12.apk","properties":{}}]
+>>>>>>> master

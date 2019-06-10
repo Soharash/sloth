@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="icon_shield_alt" translatable="false">&#xf3ed;</string>
+    <string name="icon_star" translatable="false">&#xf005;</string>
+    <string name="icon_timer" translatable="false">&#xf017;</string>
+</resources>

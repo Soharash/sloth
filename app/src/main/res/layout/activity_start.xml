@@ -14,34 +14,74 @@
         android:background="@color/colorPrimary"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/top_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true">
 
-            <ImageButton
-                android:id="@+id/ibClose"
+            <RelativeLayout
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/ibClose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:background="#00ffffff"
+                    android:padding="10dp"
+                    app:srcCompat="@mipmap/ic_close_white_36dp" />
+
+                <ImageButton
+                    android:id="@+id/ibSound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:background="#00ffffff"
+                    android:padding="15.0dip"
+                    app:srcCompat="@mipmap/ic_music_note_white_24dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:background="#00ffffff"
-                android:padding="9.0dip"
-                app:srcCompat="@mipmap/ic_close_white_36dp" />
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:padding="10dp">
 
-            <ImageButton
-                android:id="@+id/ibSound"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:background="#00ffffff"
-                android:padding="15.0dip"
-                app:srcCompat="@mipmap/ic_music_note_white_24dp" />
+                <LinearLayout
+                    android:id="@+id/privacy_policy_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical">
+
+                    <com.sohara.hangman.CustomViews.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:tag="2"
+                        android:text="Privacy  Policy"
+                        android:textColor="@android:color/white"
+                        android:textSize="20dp" />
+                    <com.sohara.hangman.CustomViews.IconTextView
+                        android:id="@+id/icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="font_awesome_solid.otf"
+                        android:text="@string/icon_shield_alt"
+                        android:textColor="@android:color/white"
+                        android:textSize="24dp" />
 
 
-        </RelativeLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
 
         <com.sohara.hangman.CustomViews.CustomTextView
             android:id="@+id/tvLogo"
@@ -61,14 +101,15 @@
             android:layout_centerVertical="true"
             android:gravity="center_horizontal"
             android:orientation="vertical">
+
             <com.sohara.hangman.CustomViews.CustomTextView
                 android:id="@+id/tvPoints"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-
-                android:tag="2"
                 android:layout_marginTop="20dp"
+
+                android:padding="16dp"
+                android:tag="2"
                 android:textColor="#FFDF00"
                 android:textSize="34dp" />
 
@@ -144,13 +185,13 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/ad_layout"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="10.0dip"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/button_round"
-            android:paddingBottom="4dp"
             android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:tag="2"
             android:text="@string/start_game"
             android:textSize="32.0dip" />
@@ -175,12 +216,12 @@
             android:id="@+id/linearLayout2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginBottom="10.0dip"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="20.0dip"
-            android:layout_marginRight="20.0dip"
             android:layout_marginTop="10.0dip"
+            android:layout_marginRight="20.0dip"
+            android:layout_marginBottom="10.0dip"
             android:orientation="horizontal"
             android:visibility="gone">
 

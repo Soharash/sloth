@@ -18,7 +18,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -47,10 +49,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     String[] categoryNames;
     public static String[] language = new String[]{"english", "فارسی"};
     public static String[] languageCodes = new String[]{"en", "fa"};
-
-    //    String[] difficulty = { "Easy", "Medium", "Hard" };
     SharedPreferences.Editor editor;
-    Typeface font;
     ImageButton ibNoSound;
     ImageButton ibSound;
     SharedPreferences prefs;
@@ -60,7 +59,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     TextView tvPoints;
     String TAG = "StartActivity";
     Resources currentResources;
-//    TextView tvDifficulty;
+    LinearLayout privacyPolicyLayout;
 
 
     public void onBackPressed() {
@@ -164,6 +163,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         switch (view.getId()) {
             default:
                 return;
+            case R.id.privacy_policy_layout:
+                Intent intent = new Intent(this , PrivacyPolicyActivity.class);
+                startActivity(intent);
+                break;
             case R.id.bCategories:
                 showCategoriesDialog();
                 return;
@@ -213,6 +216,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         } else {
             Utils.changeLocale(this, languageCodes[0]);
         }
+        Utils.forceLtrIfSupported(this);
         init();
 
         tableNames = DatabaseHelper.getAllTables(this);
@@ -222,6 +226,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             ibNoSound.setVisibility(View.INVISIBLE);
         }
 
+        privacyPolicyLayout.setOnClickListener(this);
         bCategories.setOnClickListener(this);
         bLanguage.setOnClickListener(this);
 //            bDifficulty.setOnClickListener(this);
@@ -238,6 +243,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     private void init() {
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        privacyPolicyLayout = findViewById(R.id.privacy_policy_layout);
         persianNumber = new PersianNumber(this);
         categoryNames = getResources().getStringArray(R.array.categories);
         prefs = getSharedPreferences("StartActivity", 0);

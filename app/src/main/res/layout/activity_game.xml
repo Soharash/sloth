@@ -9,7 +9,6 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="40.0dip"
-        android:background="#70000000"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="5.0dip"
@@ -22,11 +21,15 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageView
+            <com.sohara.hangman.CustomViews.IconTextView
                 android:id="@+id/imageView"
-                android:layout_width="20.0dip"
-                android:layout_height="20.0dip"
-                ads:srcCompat="@drawable/ic_star_white_24dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:tag="font_awesome_solid.otf"
+                android:text="@string/icon_star"
+                android:textColor="@color/gold_color"
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/tvScore"
@@ -36,7 +39,7 @@
                 android:paddingLeft="7.0dip"
                 android:text="0"
                 android:textSize="18dp"
-                android:textColor="#ffffffff" />
+                android:textColor="@color/gold_color" />
         </LinearLayout>
 
         <com.sohara.hangman.CustomViews.CustomTextView
@@ -46,7 +49,7 @@
             android:layout_weight="50.0"
             android:gravity="center_horizontal"
             android:tag="2"
-            android:textColor="#ffffffff"
+            android:textColor="@color/gold_color"
             android:textSize="24.0sp" />
 
         <LinearLayout
@@ -65,14 +68,18 @@
                 android:paddingRight="7.0dip"
                 android:text="0"
                 android:textSize="18dp"
-                android:textColor="#ffffffff" />
+                android:textColor="@color/gold_color" />
 
-            <ImageView
+            <com.sohara.hangman.CustomViews.IconTextView
                 android:id="@+id/imageView2"
-                android:layout_width="20.0dip"
-                android:layout_height="20.0dip"
-                android:adjustViewBounds="true"
-                ads:srcCompat="@mipmap/ic_schedule_white_24dp" />
+                android:layout_width="wrap_content"
+                android:textSize="20dp"
+                android:layout_gravity="center_vertical"
+                android:text="@string/icon_timer"
+                android:tag="font_awesome_solid.otf"
+                android:textColor="@color/gold_color"
+                android:layout_height="wrap_content"
+                />
         </LinearLayout>
     </LinearLayout>
 

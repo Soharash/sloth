@@ -7,8 +7,8 @@ android {
         applicationId "com.sohara.hangman"
         minSdkVersion 17
         targetSdkVersion 28
-        versionCode 4
-        versionName "1.2.0"
+        versionCode 5
+        versionName "1.2.1"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test:runner:1.1.1"
     }

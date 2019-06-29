@@ -2,8 +2,6 @@
 <resources>
     <array name="categories">
         <item>@string/animals</item>
-        <item>@string/countries</item>
-        <item>@string/food</item>
         <item>@string/kitchen</item>
         <item>@string/sports</item>
         <item>@string/jobs</item>
@@ -12,6 +10,8 @@
         <item>@string/flowers</item>
         <item>@string/fruits</item>
         <item>@string/colors</item>
+        <item>@string/countries</item>
+        <item>@string/food</item>
     </array>
 
 
